@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mgp.dev/schemas/memory-content-preference.schema.json",
+  "title": "MGP Preference Memory Content",
+  "description": "Structured content shape for preference memories.",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "statement"
+  ],
+  "properties": {
+    "statement": {
+      "type": "string",
+      "minLength": 1
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 1
+    },
+    "keywords": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "preference": {
+      "type": "string",
+      "minLength": 1
+    },
+    "preference_key": {
+      "type": "string",
+      "minLength": 1
+    },
+    "preference_value": {
+      "type": [
+        "string",
+        "number",
+        "integer",
+        "boolean",
+        "object",
+        "array",
+        "null"
+      ]
+    },
+    "scope_hint": {
+      "type": "string",
+      "minLength": 1
+    },
+    "user_message": {
+      "type": "string",
+      "minLength": 1
+    },
+    "assistant_response": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}

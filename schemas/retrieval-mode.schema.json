@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mgp.dev/schemas/retrieval-mode.schema.json",
+  "title": "MGP Retrieval Mode",
+  "description": "Allowed retrieval strategies surfaced through MGP search results and backend capability declarations.",
+  "type": "string",
+  "enum": [
+    "lexical",
+    "semantic",
+    "hybrid",
+    "graph",
+    "direct_lookup"
+  ]
+}

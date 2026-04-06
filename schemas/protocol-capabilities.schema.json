@@ -1,0 +1,121 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mgp.dev/schemas/protocol-capabilities.schema.json",
+  "title": "MGP Protocol Capabilities",
+  "description": "Negotiable protocol-layer capabilities for lifecycle, transport, and asynchronous behavior.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "supports_discovery",
+    "supports_initialize",
+    "supports_runtime_capability_negotiation",
+    "supports_negotiated_capabilities",
+    "requires_initialize",
+    "supports_stateless_http",
+    "supports_streamable_http",
+    "supports_sessions",
+    "supports_async_operations",
+    "supports_notifications",
+    "supports_subscriptions",
+    "supports_ping",
+    "transport_profiles",
+    "supported_profiles",
+    "session_mode"
+  ],
+  "properties": {
+    "supports_discovery": {
+      "type": "boolean",
+      "description": "Whether the implementation exposes discovery metadata such as /mgp/capabilities."
+    },
+    "supports_initialize": {
+      "type": "boolean",
+      "description": "Whether the implementation supports an explicit initialize handshake."
+    },
+    "supports_runtime_capability_negotiation": {
+      "type": "boolean",
+      "description": "Whether initialize can accept runtime-side capability declarations."
+    },
+    "supports_negotiated_capabilities": {
+      "type": "boolean",
+      "description": "Whether initialize returns an explicit negotiated_capabilities object."
+    },
+    "requires_initialize": {
+      "type": "boolean",
+      "description": "Whether callers must successfully initialize before issuing normal operations."
+    },
+    "supports_stateless_http": {
+      "type": "boolean",
+      "description": "Whether the stateless HTTP profile is supported."
+    },
+    "supports_streamable_http": {
+      "type": "boolean",
+      "description": "Whether a future streamable HTTP profile is supported."
+    },
+    "supports_sessions": {
+      "type": "boolean",
+      "description": "Whether the protocol exposes a protocol-level session distinct from business session_id."
+    },
+    "supports_async_operations": {
+      "type": "boolean",
+      "description": "Whether long-running operations can be accepted asynchronously."
+    },
+    "supports_notifications": {
+      "type": "boolean",
+      "description": "Whether the implementation can emit protocol notifications."
+    },
+    "supports_subscriptions": {
+      "type": "boolean",
+      "description": "Whether clients can subscribe to change feeds or similar event streams."
+    },
+    "supports_ping": {
+      "type": "boolean",
+      "description": "Whether a protocol-level ping/keepalive primitive is supported."
+    },
+    "transport_profiles": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "description": "Transport profiles supported by the implementation.",
+      "items": {
+        "type": "string",
+        "enum": [
+          "stateless_http",
+          "streamable_http"
+        ]
+      }
+    },
+    "supported_profiles": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "description": "Protocol profiles currently understood by the implementation.",
+      "items": {
+        "type": "string",
+        "enum": [
+          "core-memory",
+          "governance",
+          "interop",
+          "lifecycle"
+        ]
+      }
+    },
+    "default_profile": {
+      "type": "string",
+      "description": "Preferred default profile when the caller does not request one explicitly.",
+      "enum": [
+        "core-memory",
+        "governance",
+        "interop",
+        "lifecycle"
+      ]
+    },
+    "session_mode": {
+      "type": "string",
+      "description": "Whether the implementation is operating in a stateless or stateful protocol mode.",
+      "enum": [
+        "stateless",
+        "stateful"
+      ]
+    }
+  }
+}

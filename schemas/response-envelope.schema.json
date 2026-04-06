@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mgp.dev/schemas/response-envelope.schema.json",
+  "title": "MGP Response Envelope",
+  "description": "Wire-level response envelope for MGP operations.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "request_id",
+    "status",
+    "error",
+    "data"
+  ],
+  "properties": {
+    "request_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Correlation identifier copied from the request."
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "ok",
+        "error"
+      ],
+      "description": "Top-level outcome of the operation."
+    },
+    "error": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "description": "Error information for failed requests.",
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "$ref": "error-code.schema.json"
+        },
+        "message": {
+          "type": "string",
+          "minLength": 1
+        },
+        "details": {
+          "type": "object",
+          "additionalProperties": true
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ]
+    },
+    "data": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "description": "Operation-specific response payload.",
+      "additionalProperties": true
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "ok"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "error": {
+            "type": "null"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "error"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "error": {
+            "type": "object"
+          }
+        }
+      }
+    }
+  ]
+}

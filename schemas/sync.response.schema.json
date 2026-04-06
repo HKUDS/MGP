@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mgp.dev/schemas/sync.response.schema.json",
+  "title": "SyncMemories Response",
+  "allOf": [
+    {
+      "$ref": "response-envelope.schema.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "oneOf": [
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "memories"
+              ],
+              "properties": {
+                "memories": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "memory-object.schema.json"
+                  }
+                },
+                "cursor": {
+                  "type": "string"
+                },
+                "next_token": {
+                  "type": "string"
+                }
+              }
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "task"
+              ],
+              "properties": {
+                "task": {
+                  "$ref": "async-task.schema.json"
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

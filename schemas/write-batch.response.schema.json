@@ -1,0 +1,131 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mgp.dev/schemas/write-batch.response.schema.json",
+  "title": "BatchWriteMemory Response",
+  "allOf": [
+    {
+      "$ref": "response-envelope.schema.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "additionalProperties": false,
+          "required": [
+            "results"
+          ],
+          "properties": {
+            "results": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "status"
+                ],
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "enum": [
+                      "ok",
+                      "error"
+                    ]
+                  },
+                  "memory": {
+                    "$ref": "memory-object.schema.json"
+                  },
+                  "return_mode": {
+                    "$ref": "return-mode.schema.json"
+                  },
+                  "redaction_info": {
+                    "type": [
+                      "object",
+                      "null"
+                    ],
+                    "allOf": [
+                      {
+                        "if": {
+                          "type": "object"
+                        },
+                        "then": {
+                          "$ref": "redaction-info.schema.json"
+                        }
+                      }
+                    ]
+                  },
+                  "consumable_text": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "resolution": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "error": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "code",
+                      "message"
+                    ],
+                    "properties": {
+                      "code": {
+                        "$ref": "error-code.schema.json"
+                      },
+                      "message": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "details": {
+                        "type": "object",
+                        "additionalProperties": true
+                      }
+                    }
+                  }
+                },
+                "allOf": [
+                  {
+                    "if": {
+                      "properties": {
+                        "status": {
+                          "const": "ok"
+                        }
+                      }
+                    },
+                    "then": {
+                      "required": [
+                        "memory",
+                        "return_mode",
+                        "redaction_info",
+                        "consumable_text",
+                        "resolution"
+                      ]
+                    }
+                  },
+                  {
+                    "if": {
+                      "properties": {
+                        "status": {
+                          "const": "error"
+                        }
+                      }
+                    },
+                    "then": {
+                      "required": [
+                        "error"
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

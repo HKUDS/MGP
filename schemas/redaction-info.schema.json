@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mgp.dev/schemas/redaction-info.schema.json",
+  "title": "MGP Redaction Info",
+  "description": "Standardized metadata describing policy-driven transformation of returned memory content.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "policy_view"
+  ],
+  "properties": {
+    "policy_view": {
+      "$ref": "return-mode.schema.json"
+    },
+    "reason_code": {
+      "type": "string",
+      "minLength": 1
+    },
+    "masked_fields": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "transformed_fields": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "summary_generated": {
+      "type": "boolean"
+    },
+    "explanation": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}

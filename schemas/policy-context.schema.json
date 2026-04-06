@@ -1,0 +1,106 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mgp.dev/schemas/policy-context.schema.json",
+  "title": "MGP Policy Context",
+  "description": "Request-side policy and execution context for MGP operations.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "actor_agent",
+    "acting_for_subject",
+    "requested_action"
+  ],
+  "properties": {
+    "actor_agent": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Identity of the calling agent."
+    },
+    "acting_for_subject": {
+      "$ref": "memory-object.schema.json#/$defs/subject"
+    },
+    "task_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Task identifier associated with the request."
+    },
+    "session_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Session identifier associated with the request."
+    },
+    "task_type": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Task classification associated with the request."
+    },
+    "risk_level": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ],
+      "description": "Risk level associated with the requested operation."
+    },
+    "requested_action": {
+      "type": "string",
+      "enum": [
+        "write",
+        "search",
+        "read",
+        "update",
+        "expire",
+        "revoke",
+        "delete",
+        "purge"
+      ],
+      "description": "Operation category used for policy evaluation."
+    },
+    "channel": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Runtime channel or transport source for the request."
+    },
+    "chat_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Chat or conversation identifier associated with the request."
+    },
+    "data_zone": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Logical data zone or locality label."
+    },
+    "tenant_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Tenant boundary for multi-tenant deployments."
+    },
+    "runtime_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Logical runtime identifier."
+    },
+    "runtime_instance_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Concrete runtime instance identifier."
+    },
+    "correlation_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "External trace or correlation identifier carried across systems."
+    },
+    "consent_basis": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Why the caller is permitted to process or store this memory."
+    },
+    "assertion_origin": {
+      "type": "string",
+      "minLength": 1,
+      "description": "High-level description of where the assertion originated."
+    }
+  }
+}

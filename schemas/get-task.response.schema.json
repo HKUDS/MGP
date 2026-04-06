@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mgp.dev/schemas/get-task.response.schema.json",
+  "title": "Get Task Response",
+  "allOf": [
+    {
+      "$ref": "response-envelope.schema.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "additionalProperties": false,
+          "required": [
+            "task"
+          ],
+          "properties": {
+            "task": {
+              "$ref": "async-task.schema.json"
+            }
+          }
+        }
+      }
+    }
+  ]
+}

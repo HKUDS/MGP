@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mgp.dev/schemas/score-kind.schema.json",
+  "title": "MGP Score Kind",
+  "description": "Allowed score interpretation modes surfaced by search results and backend capability declarations.",
+  "type": "string",
+  "enum": [
+    "backend_local",
+    "normalized",
+    "comparable"
+  ]
+}

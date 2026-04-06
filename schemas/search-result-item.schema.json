@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mgp.dev/schemas/search-result-item.schema.json",
+  "title": "MGP Search Result Item",
+  "description": "Normalized result item returned by SearchMemory.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "memory",
+    "score",
+    "score_kind",
+    "backend_origin",
+    "retrieval_mode",
+    "return_mode",
+    "redaction_info",
+    "consumable_text"
+  ],
+  "properties": {
+    "memory": {
+      "$ref": "memory-object.schema.json"
+    },
+    "score": {
+      "type": "number"
+    },
+    "score_kind": {
+      "$ref": "score-kind.schema.json"
+    },
+    "backend_origin": {
+      "type": "string",
+      "minLength": 1
+    },
+    "retrieval_mode": {
+      "$ref": "retrieval-mode.schema.json"
+    },
+    "return_mode": {
+      "$ref": "return-mode.schema.json"
+    },
+    "redaction_info": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "type": "object"
+          },
+          "then": {
+            "$ref": "redaction-info.schema.json"
+          }
+        }
+      ]
+    },
+    "consumable_text": {
+      "type": "string",
+      "minLength": 1
+    },
+    "matched_terms": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "explanation": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}

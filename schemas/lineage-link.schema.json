@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mgp.dev/schemas/lineage-link.schema.json",
+  "title": "MGP Lineage Link",
+  "description": "Machine-readable lineage relationship between memory objects or governance events.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "link_id",
+    "relation",
+    "source_memory_id",
+    "target_memory_id",
+    "created_at"
+  ],
+  "properties": {
+    "link_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Unique identifier for the lineage link."
+    },
+    "relation": {
+      "type": "string",
+      "enum": [
+        "derived_from",
+        "supersedes",
+        "conflicts_with",
+        "read_by",
+        "written_by",
+        "expired_by_policy",
+        "deleted_by_request",
+        "purged_by_request",
+        "asserted_from_evidence"
+      ],
+      "description": "Normalized lineage relation type."
+    },
+    "source_memory_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Source side of the lineage relation."
+    },
+    "target_memory_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Target side of the lineage relation."
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the lineage relation was recorded."
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Optional implementation-specific metadata for the link.",
+      "additionalProperties": true
+    }
+  }
+}

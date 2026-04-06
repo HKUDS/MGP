@@ -1,0 +1,6 @@
+# Locked direct dependencies for the compliance suite.
+# Refresh by resolving in the repository virtual environment.
+PyYAML==6.0.3
+httpx==0.28.1
+jsonschema==4.25.1
+pytest==8.4.2

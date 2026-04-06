@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mgp.dev/schemas/return-mode.schema.json",
+  "title": "MGP Return Mode",
+  "description": "Canonical representation modes for governed memory responses.",
+  "type": "string",
+  "enum": [
+    "raw",
+    "summary",
+    "masked",
+    "metadata_only"
+  ]
+}

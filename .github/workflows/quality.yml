@@ -1,0 +1,134 @@
+name: Quality (make lint quality subset)
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  python-quality:
+    name: Python Quality
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install tooling and project dependencies
+        run: |
+          python -m venv .venv
+          ./.venv/bin/python -m pip install --upgrade pip
+          ./.venv/bin/python -m pip install -r reference/requirements.lock.txt -r compliance/requirements.lock.txt -r docs/requirements.lock.txt
+          ./.venv/bin/python -m pip install -e reference -e sdk/python
+          ./.venv/bin/python -m pip install ruff mypy types-PyYAML
+
+      - name: Run Ruff (matches make lint quality checks)
+        run: ./.venv/bin/python -m ruff check adapters reference sdk/python integrations scripts
+
+      - name: Run mypy (matches make lint quality checks)
+        run: ./.venv/bin/python -m mypy adapters reference sdk/python/mgp_client integrations scripts
+
+  compliance:
+    name: Compliance (${{ matrix.adapter }}, py${{ matrix.python-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        adapter:
+          - memory
+          - file
+          - graph
+        python-version:
+          - "3.11"
+          - "3.12"
+
+    env:
+      MGP_ADAPTER: ${{ matrix.adapter }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install compliance dependencies
+        run: |
+          python -m venv .venv
+          ./.venv/bin/python -m pip install --upgrade pip
+          ./.venv/bin/python -m pip install -r reference/requirements.lock.txt -r compliance/requirements.lock.txt
+          ./.venv/bin/python -m pip install -e reference
+          ./.venv/bin/python -m pip install pytest-cov
+
+      - name: Run compliance suite
+        run: ./.venv/bin/python -m pytest compliance --cov=reference --cov=adapters --cov-report=xml --cov-report=term
+
+      - name: Upload coverage artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: compliance-coverage-${{ matrix.adapter }}-py${{ matrix.python-version }}
+          path: coverage.xml
+
+  sdk:
+    name: SDK Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install SDK dependencies
+        run: |
+          python -m venv .venv
+          ./.venv/bin/python -m pip install --upgrade pip
+          ./.venv/bin/python -m pip install -e "sdk/python[dev]"
+
+      - name: Run SDK tests
+        run: ./.venv/bin/python -m pytest sdk/python/tests --cov=sdk/python/mgp_client --cov-report=xml --cov-report=term
+
+      - name: Upload SDK coverage
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sdk-coverage
+          path: coverage.xml
+
+  integrations:
+    name: Integration Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install integration dependencies
+        run: |
+          python -m venv .venv
+          ./.venv/bin/python -m pip install --upgrade pip
+          ./.venv/bin/python -m pip install -r reference/requirements.lock.txt -r compliance/requirements.lock.txt
+          ./.venv/bin/python -m pip install -e reference -e sdk/python
+
+      - name: Run integration tests
+        run: ./.venv/bin/python -m pytest integrations/nanobot/tests integrations/langgraph/tests integrations/minimal_runtime/tests

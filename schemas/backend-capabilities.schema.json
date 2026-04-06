@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mgp.dev/schemas/backend-capabilities.schema.json",
+  "title": "MGP Backend Capabilities",
+  "description": "Explicit capability declaration for an MGP adapter or backend.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "supports_write",
+    "supports_update",
+    "supports_delete",
+    "supports_purge",
+    "supports_search",
+    "supports_native_ttl",
+    "supports_graph_relations",
+    "supports_checkpoint_pointer",
+    "supports_lineage_native",
+    "supports_partial_redaction",
+    "supports_conflict_detection_native",
+    "supports_dedupe_native",
+    "supports_merge_native",
+    "supports_retrieval_explanations",
+    "supports_prompt_view",
+    "search_modes",
+    "score_kind"
+  ],
+  "properties": {
+    "supports_write": {
+      "type": "boolean",
+      "description": "Whether the backend can create new memory objects."
+    },
+    "supports_update": {
+      "type": "boolean",
+      "description": "Whether the backend can mutate existing memory objects."
+    },
+    "supports_delete": {
+      "type": "boolean",
+      "description": "Whether the backend supports destructive deletion behavior."
+    },
+    "supports_purge": {
+      "type": "boolean",
+      "description": "Whether the backend supports hard purge semantics."
+    },
+    "supports_search": {
+      "type": "boolean",
+      "description": "Whether the backend supports search-style retrieval."
+    },
+    "supports_native_ttl": {
+      "type": "boolean",
+      "description": "Whether the backend supports native expiration or TTL semantics."
+    },
+    "supports_graph_relations": {
+      "type": "boolean",
+      "description": "Whether the backend can represent graph-like relations directly."
+    },
+    "supports_checkpoint_pointer": {
+      "type": "boolean",
+      "description": "Whether the backend can store or serve checkpoint pointer memory types natively."
+    },
+    "supports_lineage_native": {
+      "type": "boolean",
+      "description": "Whether lineage links are represented natively by the backend."
+    },
+    "supports_partial_redaction": {
+      "type": "boolean",
+      "description": "Whether the backend can natively return partially redacted content."
+    },
+    "supports_conflict_detection_native": {
+      "type": "boolean",
+      "description": "Whether the backend can detect memory conflicts natively."
+    },
+    "supports_dedupe_native": {
+      "type": "boolean",
+      "description": "Whether the backend can deduplicate semantically equivalent memories natively."
+    },
+    "supports_merge_native": {
+      "type": "boolean",
+      "description": "Whether the backend can merge or reinforce memories natively."
+    },
+    "supports_retrieval_explanations": {
+      "type": "boolean",
+      "description": "Whether the backend can explain why a result was retrieved."
+    },
+    "supports_prompt_view": {
+      "type": "boolean",
+      "description": "Whether the backend can natively provide a prompt-safe or consumable view."
+    },
+    "search_modes": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "retrieval-mode.schema.json"
+      },
+      "description": "Retrieval modes exposed by the backend."
+    },
+    "score_kind": {
+      "$ref": "score-kind.schema.json",
+      "description": "How search scores should be interpreted across results."
+    }
+  }
+}

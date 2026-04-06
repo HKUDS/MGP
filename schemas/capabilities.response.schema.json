@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mgp.dev/schemas/capabilities.response.schema.json",
+  "title": "Discovery Capabilities Response",
+  "description": "Discovery-only response returned by GET /mgp/capabilities.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "manifest",
+    "protocol_capabilities"
+  ],
+  "properties": {
+    "manifest": {
+      "$ref": "adapter-manifest.schema.json"
+    },
+    "protocol_capabilities": {
+      "$ref": "protocol-capabilities.schema.json"
+    }
+  }
+}

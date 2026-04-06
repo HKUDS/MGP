@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mgp.dev/schemas/audit-query.request.schema.json",
+  "title": "Audit Query Request",
+  "allOf": [
+    {
+      "$ref": "request-envelope.schema.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "policy_context": {
+          "allOf": [
+            {
+              "$ref": "policy-context.schema.json"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "requested_action": {
+                  "const": "read"
+                }
+              }
+            }
+          ]
+        },
+        "payload": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "action": {
+              "type": "string",
+              "enum": ["write", "search", "read", "update", "expire", "revoke", "delete", "purge"]
+            },
+            "target_memory_id": {
+              "type": "string"
+            },
+            "actor_id": {
+              "type": "string"
+            },
+            "request_id": {
+              "type": "string"
+            },
+            "correlation_id": {
+              "type": "string"
+            },
+            "pagination_token": {
+              "type": "string"
+            },
+            "limit": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "timeout_ms": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        }
+      }
+    }
+  ]
+}

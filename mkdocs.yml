@@ -1,0 +1,102 @@
+site_name: MGP
+site_description: Memory Governance Protocol documentation
+docs_dir: docs
+site_dir: site
+site_url: https://larfii.github.io/MGP/
+use_directory_urls: true
+
+theme:
+  name: material
+  features:
+    - navigation.sections
+    - navigation.expand
+    - content.code.copy
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.snippets:
+      base_path:
+        - docs
+        - .
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+
+plugins:
+  - search
+  - i18n:
+      docs_structure: folder
+      reconfigure_material: true
+      languages:
+        - locale: en
+          default: true
+          name: English
+          build: true
+        - locale: zh
+          name: 中文
+          build: true
+          nav_translations:
+            Home: 文档首页
+            Getting Started: 快速入门
+            Overview: 总览
+            Project Overview: 项目概览
+            Architecture: 架构说明
+            Scope: 范围定义
+            Non-Goals: 非目标
+            Landscape: 生态定位
+            Glossary: 术语表
+            MGP vs MCP: MGP 与 MCP
+            When To Use MGP: 什么时候适合用 MGP
+            Protocol: 协议
+            Protocol Reference: 协议参考
+            Schema Reference: Schema 参考
+            Conformance Profiles: Conformance Profile
+            Implementations: 实现
+            Reference Implementation: 参考实现
+            Adapter Guide: 适配器编写指南
+            Adapters Overview: 适配器总览
+            Python SDK: Python SDK
+            Quality and Integration: 质量与接入
+            Compliance Suite: 合规测试
+            Sidecar Integration: Sidecar 接入
+            Examples Overview: 示例总览
+            Deployment Guide: 部署指南
+            Operator Guide: 运维指南
+            Security Baseline: 安全基线
+            Contributing: 贡献指南
+
+nav:
+  - Home: index.md
+  - Getting Started: getting-started.md
+  - Overview:
+      - Project Overview: project-overview.md
+      - Architecture: architecture.md
+      - Scope: scope.md
+      - Non-Goals: non-goals.md
+      - Landscape: landscape.md
+      - Glossary: glossary.md
+      - MGP vs MCP: mgp-vs-mcp.md
+      - When To Use MGP: when-to-use-mgp.md
+  - Protocol:
+      - Protocol Reference: protocol-reference.md
+      - Schema Reference: schema-reference.md
+      - Conformance Profiles: conformance-profiles.md
+  - Implementations:
+      - Reference Implementation: reference-implementation.md
+      - Adapter Guide: adapter-guide.md
+      - Adapters Overview: adapters-overview.md
+      - Python SDK: python-sdk.md
+  - Quality and Integration:
+      - Compliance Suite: compliance-suite.md
+      - Sidecar Integration: sidecar-integration.md
+      - Examples Overview: examples-overview.md
+      - Deployment Guide: deployment-guide.md
+      - Operator Guide: operator-guide.md
+      - Security Baseline: security-baseline.md
+      - Contributing: contributing.md

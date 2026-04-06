@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mgp.dev/schemas/memory-merge-hint.schema.json",
+  "title": "MGP Memory Merge Hint",
+  "description": "Runtime-provided dedupe, upsert, and merge guidance for memory writes.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "strategy"
+  ],
+  "properties": {
+    "strategy": {
+      "type": "string",
+      "enum": [
+        "create",
+        "dedupe",
+        "upsert",
+        "replace",
+        "merge",
+        "reinforce",
+        "manual_review_required"
+      ]
+    },
+    "dedupe_key": {
+      "type": "string",
+      "minLength": 1
+    },
+    "conflict_key": {
+      "type": "string",
+      "minLength": 1
+    },
+    "idempotency_key": {
+      "type": "string",
+      "minLength": 1
+    },
+    "if_match_memory_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "if_match_updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "source_priority": {
+      "type": "integer"
+    },
+    "reinforcement_weight": {
+      "type": "number",
+      "minimum": 0
+    },
+    "coalesce_window_seconds": {
+      "type": "integer",
+      "minimum": 0
+    }
+  }
+}

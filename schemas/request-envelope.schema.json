@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mgp.dev/schemas/request-envelope.schema.json",
+  "title": "MGP Request Envelope",
+  "description": "Wire-level request envelope for MGP operations.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "request_id",
+    "policy_context",
+    "payload"
+  ],
+  "properties": {
+    "request_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Client-generated correlation identifier."
+    },
+    "policy_context": {
+      "$ref": "policy-context.schema.json"
+    },
+    "payload": {
+      "type": "object",
+      "description": "Operation-specific request payload.",
+      "additionalProperties": true
+    }
+  }
+}

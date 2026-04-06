@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mgp.dev/schemas/partial-failure.schema.json",
+  "title": "Partial Failure",
+  "description": "Backend-level failures that occurred alongside a partially useful response.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "failed_backends"
+  ],
+  "properties": {
+    "failed_backends": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "backend",
+          "error_code",
+          "message"
+        ],
+        "properties": {
+          "backend": {
+            "type": "string",
+            "minLength": 1
+          },
+          "error_code": {
+            "$ref": "error-code.schema.json"
+          },
+          "message": {
+            "type": "string",
+            "minLength": 1
+          },
+          "retryable": {
+            "type": "boolean"
+          }
+        }
+      }
+    }
+  }
+}

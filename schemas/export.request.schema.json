@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mgp.dev/schemas/export.request.schema.json",
+  "title": "ExportMemories Request",
+  "allOf": [
+    {
+      "$ref": "request-envelope.schema.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "policy_context": {
+          "allOf": [
+            {
+              "$ref": "policy-context.schema.json"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "requested_action": {
+                  "const": "read"
+                }
+              }
+            }
+          ]
+        },
+        "payload": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "include_inactive": {
+              "type": "boolean"
+            },
+            "execution_mode": {
+              "type": "string",
+              "enum": [
+                "sync",
+                "async"
+              ]
+            },
+            "pagination_token": {
+              "type": "string",
+              "minLength": 1
+            },
+            "limit": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "timeout_ms": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        }
+      }
+    }
+  ]
+}

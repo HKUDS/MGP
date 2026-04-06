@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mgp.dev/schemas/negotiated-capabilities.schema.json",
+  "title": "MGP Negotiated Capabilities",
+  "description": "Effective capabilities after combining protocol, backend, and runtime declarations.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "runtime_capabilities_received",
+    "supports_consumable_text",
+    "supports_redaction_info",
+    "supports_mixed_return_modes",
+    "supports_partial_failure",
+    "supports_search_explanations",
+    "supports_prompt_view",
+    "supports_delete",
+    "supports_purge",
+    "supports_async_operations",
+    "supports_subscriptions",
+    "effective_return_modes"
+  ],
+  "properties": {
+    "runtime_capabilities_received": {
+      "type": "boolean",
+      "description": "Whether the runtime sent a runtime_capabilities object during initialization."
+    },
+    "supports_consumable_text": {
+      "type": "boolean",
+      "description": "Whether consumable_text should be treated as part of the negotiated runtime-facing contract; the field itself remains part of the v0.1.0 response surface."
+    },
+    "supports_redaction_info": {
+      "type": "boolean",
+      "description": "Whether redaction_info is part of the negotiated surface."
+    },
+    "supports_mixed_return_modes": {
+      "type": "boolean",
+      "description": "Whether mixed return_mode handling is negotiated as supported."
+    },
+    "supports_partial_failure": {
+      "type": "boolean",
+      "description": "Whether partial_failure handling is negotiated as supported."
+    },
+    "supports_search_explanations": {
+      "type": "boolean",
+      "description": "Whether search explanations are negotiated as useful to the runtime."
+    },
+    "supports_prompt_view": {
+      "type": "boolean",
+      "description": "Whether the runtime and implementation agree that the prompt-oriented views already present in the protocol are usable end to end."
+    },
+    "supports_delete": {
+      "type": "boolean",
+      "description": "Whether delete semantics are available in the negotiated interaction."
+    },
+    "supports_purge": {
+      "type": "boolean",
+      "description": "Whether purge semantics are available in the negotiated interaction."
+    },
+    "supports_async_operations": {
+      "type": "boolean",
+      "description": "Whether async operations are negotiated as available."
+    },
+    "supports_subscriptions": {
+      "type": "boolean",
+      "description": "Whether subscriptions are negotiated as available."
+    },
+    "effective_return_modes": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "description": "Return modes that remain acceptable after negotiation.",
+      "items": {
+        "$ref": "return-mode.schema.json"
+      }
+    }
+  }
+}

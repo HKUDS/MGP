@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mgp.dev/schemas/export.response.schema.json",
+  "title": "ExportMemories Response",
+  "allOf": [
+    {
+      "$ref": "response-envelope.schema.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "oneOf": [
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "memories"
+              ],
+              "properties": {
+                "memories": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "memory-object.schema.json"
+                  }
+                },
+                "next_token": {
+                  "type": "string"
+                }
+              }
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "task"
+              ],
+              "properties": {
+                "task": {
+                  "$ref": "async-task.schema.json"
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

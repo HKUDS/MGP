@@ -1,0 +1,54 @@
+{
+  "adapter_name": "memory-reference-adapter",
+  "backend_kind": "in_memory",
+  "mgp_version": "0.1.0",
+  "supported_memory_types": [
+    "profile",
+    "preference",
+    "episodic_event",
+    "semantic_fact",
+    "procedural_rule",
+    "relationship",
+    "checkpoint_pointer",
+    "artifact_summary"
+  ],
+  "supported_scopes": [
+    "user",
+    "session",
+    "task",
+    "agent",
+    "org",
+    "shared_team"
+  ],
+  "supported_candidate_kinds": [
+    "assertion",
+    "confirmation",
+    "correction",
+    "derived"
+  ],
+  "capabilities": {
+    "supports_write": true,
+    "supports_update": true,
+    "supports_delete": true,
+    "supports_purge": true,
+    "supports_search": true,
+    "supports_native_ttl": false,
+    "supports_graph_relations": false,
+    "supports_checkpoint_pointer": true,
+    "supports_lineage_native": false,
+    "supports_partial_redaction": false,
+    "supports_conflict_detection_native": false,
+    "supports_dedupe_native": false,
+    "supports_merge_native": false,
+    "supports_retrieval_explanations": true,
+    "supports_prompt_view": true,
+    "search_modes": [
+      "lexical"
+    ],
+    "score_kind": "backend_local"
+  },
+  "default_prompt_view": "raw",
+  "extension_namespaces": [
+    "mgp"
+  ]
+}

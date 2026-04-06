@@ -1,0 +1,5 @@
+# Locked direct dependencies for the documentation site.
+# Refresh by resolving in the repository virtual environment.
+mkdocs==1.6.1
+mkdocs-material==9.7.5
+mkdocs-static-i18n==1.3.1

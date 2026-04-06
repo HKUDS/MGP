@@ -1,0 +1,123 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mgp.dev/schemas/audit-event.schema.json",
+  "title": "MGP Audit Event",
+  "description": "Machine-readable audit event emitted for MGP-governed operations.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "event_id",
+    "timestamp",
+    "request_id",
+    "actor",
+    "action",
+    "target_memory_id",
+    "policy_context",
+    "decision"
+  ],
+  "properties": {
+    "event_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Unique identifier for the audit event."
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the audit event was emitted."
+    },
+    "request_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Request identifier correlated to the original protocol call."
+    },
+    "actor": {
+      "$ref": "memory-object.schema.json#/$defs/subject"
+    },
+    "action": {
+      "type": "string",
+      "enum": [
+        "write",
+        "search",
+        "read",
+        "update",
+        "expire",
+        "revoke",
+        "delete",
+        "purge"
+      ],
+      "description": "Normalized action type for the audited operation."
+    },
+    "target_memory_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Identifier of the memory object primarily affected by the operation."
+    },
+    "policy_context": {
+      "$ref": "policy-context.schema.json"
+    },
+    "decision": {
+      "$ref": "#/$defs/accessDecision"
+    },
+    "backend": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Backend or adapter identifier used to serve the request."
+    },
+    "result_count": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Number of returned results for search-like operations."
+    },
+    "correlation_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "External trace identifier copied from runtime context when available."
+    },
+    "lineage_refs": {
+      "type": "array",
+      "description": "References to lineage links associated with this operation.",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  },
+  "$defs": {
+    "accessDecision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "decision",
+        "reason_code",
+        "applied_rules",
+        "return_mode"
+      ],
+      "properties": {
+        "decision": {
+          "type": "string",
+          "enum": [
+            "allow",
+            "deny",
+            "redact",
+            "summarize"
+          ]
+        },
+        "reason_code": {
+          "type": "string",
+          "minLength": 1
+        },
+        "applied_rules": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "return_mode": {
+          "$ref": "return-mode.schema.json"
+        }
+      }
+    }
+  }
+}

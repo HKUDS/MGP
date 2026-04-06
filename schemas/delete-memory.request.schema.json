@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mgp.dev/schemas/delete-memory.request.schema.json",
+  "title": "DeleteMemory Request",
+  "allOf": [
+    {
+      "$ref": "request-envelope.schema.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "policy_context": {
+          "allOf": [
+            {
+              "$ref": "policy-context.schema.json"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "requested_action": {
+                  "const": "delete"
+                }
+              }
+            }
+          ]
+        },
+        "payload": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["memory_id"],
+          "properties": {
+            "memory_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "deleted_at": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "reason": {
+              "type": "string"
+            },
+            "timeout_ms": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        }
+      }
+    }
+  ]
+}

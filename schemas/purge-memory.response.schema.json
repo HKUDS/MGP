@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mgp.dev/schemas/purge-memory.response.schema.json",
+  "title": "PurgeMemory Response",
+  "allOf": [
+    {
+      "$ref": "response-envelope.schema.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "additionalProperties": false,
+          "required": ["memory_id", "state"],
+          "properties": {
+            "memory_id": {
+              "type": "string"
+            },
+            "state": {
+              "type": "string",
+              "const": "purged"
+            },
+            "purged_at": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "format": "date-time"
+            },
+            "reason": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        }
+      }
+    }
+  ]
+}

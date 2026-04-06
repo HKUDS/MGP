@@ -1,0 +1,38 @@
+.DS_Store
+.history/
+
+# Editor
+.idea/
+.vscode/
+
+# Node.js
+node_modules/
+dist/
+build/
+coverage/
+
+# Go
+bin/
+*.test
+coverage.out
+
+# Environment
+.env
+.env.*
+.venv/
+
+# Python
+__pycache__/
+*.pyc
+*.egg-info/
+.pytest_cache/
+
+# Docs
+site/
+
+# Runtime artifacts
+*.db
+*.jsonl
+reference/file-data/
+adapters/file/data/*.json
+!adapters/file/data/.gitkeep

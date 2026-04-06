@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mgp.dev/schemas/memory-content-procedural-rule.schema.json",
+  "title": "MGP Procedural Rule Memory Content",
+  "description": "Structured content shape for procedural rule memories.",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "statement"
+  ],
+  "properties": {
+    "statement": {
+      "type": "string",
+      "minLength": 1
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 1
+    },
+    "keywords": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "rule": {
+      "type": "string",
+      "minLength": 1
+    },
+    "trigger": {
+      "type": "string",
+      "minLength": 1
+    },
+    "action": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}

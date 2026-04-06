@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mgp.dev/schemas/memory-evidence.schema.json",
+  "title": "MGP Memory Evidence",
+  "description": "Structured evidence item supporting a memory candidate or memory object.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "kind",
+    "ref"
+  ],
+  "properties": {
+    "evidence_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "kind": {
+      "type": "string",
+      "enum": [
+        "chat_message",
+        "tool_result",
+        "document_excerpt",
+        "external_record",
+        "user_confirmation",
+        "system_inference",
+        "human_annotation"
+      ]
+    },
+    "ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "excerpt": {
+      "type": "string",
+      "minLength": 1
+    },
+    "captured_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "trust_level": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ]
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  }
+}

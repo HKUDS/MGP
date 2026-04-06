@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mgp.dev/schemas/search-memory.request.schema.json",
+  "title": "SearchMemory Request",
+  "allOf": [
+    {
+      "$ref": "request-envelope.schema.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "policy_context": {
+          "allOf": [
+            {
+              "$ref": "policy-context.schema.json"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "requested_action": {
+                  "const": "search"
+                }
+              }
+            }
+          ]
+        },
+        "payload": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "query": {
+              "type": "string"
+            },
+            "intent": {
+              "$ref": "recall-intent.schema.json"
+            },
+            "subject": {
+              "$ref": "memory-object.schema.json#/$defs/subject"
+            },
+            "scope": {
+              "$ref": "memory-object.schema.json#/properties/scope"
+            },
+            "types": {
+              "type": "array",
+              "items": {
+                "$ref": "memory-object.schema.json#/properties/type"
+              }
+            },
+            "limit": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "pagination_token": {
+              "type": "string"
+            },
+            "timeout_ms": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          "anyOf": [
+            { "required": ["query"] },
+            { "required": ["intent"] }
+          ]
+        }
+      }
+    }
+  ]
+}

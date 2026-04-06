@@ -1,0 +1,48 @@
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+exclude = [
+  ".venv",
+  "site",
+]
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]
+
+[tool.pytest.ini_options]
+addopts = "-q"
+# Bare `pytest` from the repository root uses this expanded matrix.
+# Prefer the `make test*` targets when you want narrower feedback loops.
+testpaths = [
+  "compliance",
+  "integrations/nanobot/tests",
+  "integrations/langgraph/tests",
+  "integrations/minimal_runtime/tests",
+  "sdk/python/tests",
+]
+
+[tool.mypy]
+python_version = "3.11"
+ignore_missing_imports = true
+warn_unused_ignores = true
+warn_redundant_casts = true
+files = [
+  "adapters",
+  "reference",
+  "sdk/python/mgp_client",
+  "integrations",
+  "scripts",
+]
+
+[tool.coverage.run]
+branch = true
+source = [
+  "adapters",
+  "reference",
+  "sdk/python/mgp_client",
+  "integrations",
+]
+
+[tool.coverage.report]
+skip_empty = true
+show_missing = true

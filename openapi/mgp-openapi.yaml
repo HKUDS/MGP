@@ -1,0 +1,707 @@
+openapi: 3.1.0
+info:
+  title: Memory Governance Protocol API
+  version: 0.1.0
+  description: >
+    Reference HTTP binding for the Memory Governance Protocol (MGP).
+    This specification defines JSON-over-HTTP endpoints for governed memory operations,
+    capability discovery, and audit querying.
+servers:
+  - url: http://localhost:8080
+    description: Local development server
+paths:
+  /mgp/initialize:
+    post:
+      summary: Initialize protocol lifecycle
+      operationId: initializeProtocol
+      tags: [Protocol]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InitializeRequest'
+      responses:
+        '200':
+          description: Protocol lifecycle is ready for normal operations
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InitializeResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '501':
+          $ref: '#/components/responses/UnsupportedCapability'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '502':
+          $ref: '#/components/responses/BackendError'
+  /mgp/write:
+    post:
+      summary: WriteMemory
+      operationId: writeMemory
+      tags: [Memory]
+      parameters:
+        - $ref: '#/components/parameters/MgpRequestId'
+        - $ref: '#/components/parameters/MgpVersion'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WriteMemoryRequest'
+      responses:
+        '200':
+          description: Memory written successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WriteMemoryResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '502':
+          $ref: '#/components/responses/BackendError'
+  /mgp/search:
+    post:
+      summary: SearchMemory
+      operationId: searchMemory
+      tags: [Memory]
+      parameters:
+        - $ref: '#/components/parameters/MgpRequestId'
+        - $ref: '#/components/parameters/MgpVersion'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchMemoryRequest'
+      responses:
+        '200':
+          description: Search completed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchMemoryResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '502':
+          $ref: '#/components/responses/BackendError'
+  /mgp/get:
+    post:
+      summary: GetMemory
+      operationId: getMemory
+      tags: [Memory]
+      parameters:
+        - $ref: '#/components/parameters/MgpRequestId'
+        - $ref: '#/components/parameters/MgpVersion'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetMemoryRequest'
+      responses:
+        '200':
+          description: Memory fetched
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetMemoryResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '502':
+          $ref: '#/components/responses/BackendError'
+  /mgp/update:
+    post:
+      summary: UpdateMemory
+      operationId: updateMemory
+      tags: [Memory]
+      parameters:
+        - $ref: '#/components/parameters/MgpRequestId'
+        - $ref: '#/components/parameters/MgpVersion'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateMemoryRequest'
+      responses:
+        '200':
+          description: Memory updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateMemoryResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '502':
+          $ref: '#/components/responses/BackendError'
+  /mgp/expire:
+    post:
+      summary: ExpireMemory
+      operationId: expireMemory
+      tags: [Lifecycle]
+      parameters:
+        - $ref: '#/components/parameters/MgpRequestId'
+        - $ref: '#/components/parameters/MgpVersion'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExpireMemoryRequest'
+      responses:
+        '200':
+          description: Memory expired
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExpireMemoryResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '502':
+          $ref: '#/components/responses/BackendError'
+  /mgp/revoke:
+    post:
+      summary: RevokeMemory
+      operationId: revokeMemory
+      tags: [Lifecycle]
+      parameters:
+        - $ref: '#/components/parameters/MgpRequestId'
+        - $ref: '#/components/parameters/MgpVersion'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RevokeMemoryRequest'
+      responses:
+        '200':
+          description: Memory revoked
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RevokeMemoryResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '502':
+          $ref: '#/components/responses/BackendError'
+  /mgp/delete:
+    post:
+      summary: DeleteMemory
+      operationId: deleteMemory
+      tags: [Lifecycle]
+      parameters:
+        - $ref: '#/components/parameters/MgpRequestId'
+        - $ref: '#/components/parameters/MgpVersion'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeleteMemoryRequest'
+      responses:
+        '200':
+          description: Memory soft-deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteMemoryResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '502':
+          $ref: '#/components/responses/BackendError'
+  /mgp/purge:
+    post:
+      summary: PurgeMemory
+      operationId: purgeMemory
+      tags: [Lifecycle]
+      parameters:
+        - $ref: '#/components/parameters/MgpRequestId'
+        - $ref: '#/components/parameters/MgpVersion'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PurgeMemoryRequest'
+      responses:
+        '200':
+          description: Memory hard-purged
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PurgeMemoryResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '502':
+          $ref: '#/components/responses/BackendError'
+  /mgp/write/batch:
+    post:
+      summary: Batch WriteMemory
+      operationId: batchWriteMemory
+      tags: [Memory]
+      parameters:
+        - $ref: '#/components/parameters/MgpRequestId'
+        - $ref: '#/components/parameters/MgpVersion'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BatchWriteRequest'
+      responses:
+        '200':
+          description: Batch write completed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchWriteResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '502':
+          $ref: '#/components/responses/BackendError'
+  /mgp/export:
+    post:
+      summary: Export memories
+      operationId: exportMemories
+      tags: [Interoperability]
+      parameters:
+        - $ref: '#/components/parameters/MgpRequestId'
+        - $ref: '#/components/parameters/MgpVersion'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExportRequest'
+      responses:
+        '200':
+          description: Export page returned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExportResponse'
+        '202':
+          description: Export accepted as an async task
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExportResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '502':
+          $ref: '#/components/responses/BackendError'
+  /mgp/import:
+    post:
+      summary: Import memories
+      operationId: importMemories
+      tags: [Interoperability]
+      parameters:
+        - $ref: '#/components/parameters/MgpRequestId'
+        - $ref: '#/components/parameters/MgpVersion'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ImportRequest'
+      responses:
+        '200':
+          description: Import completed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImportResponse'
+        '202':
+          description: Import accepted as an async task
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImportResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '502':
+          $ref: '#/components/responses/BackendError'
+  /mgp/sync:
+    post:
+      summary: Sync memories
+      operationId: syncMemories
+      tags: [Interoperability]
+      parameters:
+        - $ref: '#/components/parameters/MgpRequestId'
+        - $ref: '#/components/parameters/MgpVersion'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SyncRequest'
+      responses:
+        '200':
+          description: Sync page returned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SyncResponse'
+        '202':
+          description: Sync accepted as an async task
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SyncResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '502':
+          $ref: '#/components/responses/BackendError'
+  /mgp/tasks/get:
+    post:
+      summary: Get async task
+      operationId: getTask
+      tags: [Protocol]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetTaskRequest'
+      responses:
+        '200':
+          description: Current async task state returned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetTaskResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '502':
+          $ref: '#/components/responses/BackendError'
+  /mgp/tasks/cancel:
+    post:
+      summary: Cancel async task
+      operationId: cancelTask
+      tags: [Protocol]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CancelTaskRequest'
+      responses:
+        '200':
+          description: Async task cancellation acknowledged
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CancelTaskResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '502':
+          $ref: '#/components/responses/BackendError'
+  /mgp/capabilities:
+    get:
+      summary: Get capabilities
+      operationId: getCapabilities
+      tags: [Discovery]
+      parameters:
+        - $ref: '#/components/parameters/MgpVersion'
+      responses:
+        '200':
+          description: Adapter manifest and backend capabilities
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CapabilitiesResponse'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '502':
+          $ref: '#/components/responses/BackendError'
+  /mgp/audit/query:
+    post:
+      summary: Query audit events
+      operationId: queryAuditEvents
+      tags: [Audit]
+      parameters:
+        - $ref: '#/components/parameters/MgpRequestId'
+        - $ref: '#/components/parameters/MgpVersion'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuditQueryRequest'
+      responses:
+        '200':
+          description: Audit events returned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuditQueryResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '502':
+          $ref: '#/components/responses/BackendError'
+components:
+  parameters:
+    MgpRequestId:
+      name: MGP-Request-Id
+      in: header
+      required: false
+      schema:
+        type: string
+      description: Optional mirror of the JSON envelope request_id.
+    MgpVersion:
+      name: MGP-Version
+      in: header
+      required: false
+      schema:
+        type: string
+      description: Optional protocol version hint.
+  responses:
+    BadRequest:
+      description: Request validation failed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorEnvelope'
+    Forbidden:
+      description: Policy denied the request or a scope violation occurred
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorEnvelope'
+    NotFound:
+      description: The target memory object was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorEnvelope'
+    Conflict:
+      description: The request created an unresolved protocol conflict
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorEnvelope'
+    UnsupportedCapability:
+      description: The requested capability, version, or transport profile is not supported
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorEnvelope'
+    InternalError:
+      description: Internal server-side failure
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorEnvelope'
+    BackendError:
+      description: Backend or adapter failure
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorEnvelope'
+  schemas:
+    ProtocolCapabilities:
+      $ref: ../schemas/protocol-capabilities.schema.json
+    RuntimeCapabilities:
+      $ref: ../schemas/runtime-capabilities.schema.json
+    NegotiatedCapabilities:
+      $ref: ../schemas/negotiated-capabilities.schema.json
+    AsyncTask:
+      $ref: ../schemas/async-task.schema.json
+    ProgressEvent:
+      $ref: ../schemas/progress-event.schema.json
+    GetTaskRequest:
+      $ref: ../schemas/get-task.request.schema.json
+    GetTaskResponse:
+      $ref: ../schemas/get-task.response.schema.json
+    CancelTaskRequest:
+      $ref: ../schemas/cancel-task.request.schema.json
+    CancelTaskResponse:
+      $ref: ../schemas/cancel-task.response.schema.json
+    InitializeRequest:
+      $ref: ../schemas/initialize.request.schema.json
+    InitializeResponse:
+      $ref: ../schemas/initialize.response.schema.json
+    MemoryObject:
+      $ref: ../schemas/memory-object.schema.json
+    MemoryCandidate:
+      $ref: ../schemas/memory-candidate.schema.json
+    RecallIntent:
+      $ref: ../schemas/recall-intent.schema.json
+    PolicyContext:
+      $ref: ../schemas/policy-context.schema.json
+    RequestEnvelope:
+      $ref: ../schemas/request-envelope.schema.json
+    ResponseEnvelope:
+      $ref: ../schemas/response-envelope.schema.json
+    AuditEvent:
+      $ref: ../schemas/audit-event.schema.json
+    BackendCapabilities:
+      $ref: ../schemas/backend-capabilities.schema.json
+    AdapterManifest:
+      $ref: ../schemas/adapter-manifest.schema.json
+    RedactionInfo:
+      $ref: ../schemas/redaction-info.schema.json
+    SearchResultItem:
+      $ref: ../schemas/search-result-item.schema.json
+    ErrorObject:
+      type: object
+      additionalProperties: false
+      required: [code, message]
+      properties:
+        code:
+          $ref: ../schemas/error-code.schema.json
+        message:
+          type: string
+        details:
+          type: object
+          additionalProperties: true
+    ErrorEnvelope:
+      type: object
+      additionalProperties: false
+      required: [request_id, status, error, data]
+      properties:
+        request_id:
+          type: string
+        status:
+          type: string
+          const: error
+        error:
+          $ref: '#/components/schemas/ErrorObject'
+        data:
+          type: 'null'
+    SearchResult:
+      $ref: '#/components/schemas/SearchResultItem'
+    PartialFailure:
+      $ref: ../schemas/partial-failure.schema.json
+    WriteMemoryRequest:
+      $ref: ../schemas/write-memory.request.schema.json
+    WriteMemoryResponse:
+      $ref: ../schemas/write-memory.response.schema.json
+    SearchMemoryRequest:
+      $ref: ../schemas/search-memory.request.schema.json
+    SearchMemoryResponse:
+      $ref: ../schemas/search-memory.response.schema.json
+    GetMemoryRequest:
+      $ref: ../schemas/get-memory.request.schema.json
+    GetMemoryResponse:
+      $ref: ../schemas/get-memory.response.schema.json
+    UpdateMemoryRequest:
+      $ref: ../schemas/update-memory.request.schema.json
+    UpdateMemoryResponse:
+      $ref: ../schemas/update-memory.response.schema.json
+    ExpireMemoryRequest:
+      $ref: ../schemas/expire-memory.request.schema.json
+    ExpireMemoryResponse:
+      $ref: ../schemas/expire-memory.response.schema.json
+    RevokeMemoryRequest:
+      $ref: ../schemas/revoke-memory.request.schema.json
+    RevokeMemoryResponse:
+      $ref: ../schemas/revoke-memory.response.schema.json
+    DeleteMemoryRequest:
+      $ref: ../schemas/delete-memory.request.schema.json
+    DeleteMemoryResponse:
+      $ref: ../schemas/delete-memory.response.schema.json
+    PurgeMemoryRequest:
+      $ref: ../schemas/purge-memory.request.schema.json
+    PurgeMemoryResponse:
+      $ref: ../schemas/purge-memory.response.schema.json
+    BatchWriteRequest:
+      $ref: ../schemas/write-batch.request.schema.json
+    BatchWriteResponse:
+      $ref: ../schemas/write-batch.response.schema.json
+    ExportRequest:
+      $ref: ../schemas/export.request.schema.json
+    ExportResponse:
+      $ref: ../schemas/export.response.schema.json
+    ImportRequest:
+      $ref: ../schemas/import.request.schema.json
+    ImportResponse:
+      $ref: ../schemas/import.response.schema.json
+    SyncRequest:
+      $ref: ../schemas/sync.request.schema.json
+    SyncResponse:
+      $ref: ../schemas/sync.response.schema.json
+    CapabilitiesResponse:
+      $ref: ../schemas/capabilities.response.schema.json
+    AuditQueryRequest:
+      $ref: ../schemas/audit-query.request.schema.json
+    AuditQueryResponse:
+      $ref: ../schemas/audit-query.response.schema.json

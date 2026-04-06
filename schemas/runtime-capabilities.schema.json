@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mgp.dev/schemas/runtime-capabilities.schema.json",
+  "title": "MGP Runtime Capabilities",
+  "description": "Client/runtime-side capabilities that influence negotiated MGP behavior.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "supports_consumable_text": {
+      "type": "boolean",
+      "description": "Whether the runtime can directly consume the always-present consumable_text field as a prompt-safe view."
+    },
+    "supports_redaction_info": {
+      "type": "boolean",
+      "description": "Whether the runtime can correctly interpret redaction metadata."
+    },
+    "supports_mixed_return_modes": {
+      "type": "boolean",
+      "description": "Whether the runtime can handle mixed return_mode values in one search result set."
+    },
+    "supports_partial_failure": {
+      "type": "boolean",
+      "description": "Whether the runtime can inspect and react to partial_failure payloads."
+    },
+    "supports_search_explanations": {
+      "type": "boolean",
+      "description": "Whether the runtime can interpret search explanation fields."
+    },
+    "supports_prompt_view": {
+      "type": "boolean",
+      "description": "Whether the runtime can correctly consume the response-side prompt-safe representations already defined by MGP, such as consumable_text and governed return modes."
+    },
+    "supports_async_operations": {
+      "type": "boolean",
+      "description": "Whether the runtime can participate in future async task flows."
+    },
+    "supports_subscriptions": {
+      "type": "boolean",
+      "description": "Whether the runtime can participate in future subscription-based flows."
+    },
+    "preferred_return_modes": {
+      "type": "array",
+      "uniqueItems": true,
+      "description": "Return modes the runtime prefers to receive when multiple representations are possible.",
+      "items": {
+        "$ref": "return-mode.schema.json"
+      }
+    },
+    "supported_profiles": {
+      "type": "array",
+      "uniqueItems": true,
+      "description": "Protocol profiles the runtime can understand.",
+      "items": {
+        "type": "string",
+        "enum": [
+          "core-memory",
+          "governance",
+          "interop",
+          "lifecycle"
+        ]
+      }
+    },
+    "accepted_transport_profiles": {
+      "type": "array",
+      "uniqueItems": true,
+      "description": "Transport profiles the runtime is willing to use.",
+      "items": {
+        "type": "string",
+        "enum": [
+          "stateless_http",
+          "streamable_http"
+        ]
+      }
+    }
+  }
+}

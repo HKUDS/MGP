@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mgp.dev/schemas/memory-content-semantic-fact.schema.json",
+  "title": "MGP Semantic Fact Memory Content",
+  "description": "Structured content shape for semantic fact memories.",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "statement"
+  ],
+  "properties": {
+    "statement": {
+      "type": "string",
+      "minLength": 1
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 1
+    },
+    "keywords": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "fact": {
+      "type": "string",
+      "minLength": 1
+    },
+    "fact_key": {
+      "type": "string",
+      "minLength": 1
+    },
+    "fact_value": {
+      "type": [
+        "string",
+        "number",
+        "integer",
+        "boolean",
+        "object",
+        "array",
+        "null"
+      ]
+    },
+    "user_message": {
+      "type": "string",
+      "minLength": 1
+    },
+    "assistant_response": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}

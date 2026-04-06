@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mgp.dev/schemas/recall-intent.schema.json",
+  "title": "MGP Recall Intent",
+  "description": "Structured runtime request for memory recall and search.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "query_text"
+  ],
+  "properties": {
+    "query_text": {
+      "type": "string",
+      "minLength": 1
+    },
+    "intent_type": {
+      "type": "string",
+      "enum": [
+        "free_text",
+        "fact_lookup",
+        "preference_lookup",
+        "relationship_lookup",
+        "episodic_lookup",
+        "semantic_lookup",
+        "direct_lookup"
+      ]
+    },
+    "keywords": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "target_memory_types": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "memory-object.schema.json#/properties/type"
+      }
+    },
+    "subject": {
+      "$ref": "memory-object.schema.json#/$defs/subject"
+    },
+    "scope": {
+      "$ref": "memory-object.schema.json#/properties/scope"
+    },
+    "time_scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "since": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "until": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "include_expired": {
+          "type": "boolean"
+        }
+      }
+    },
+    "top_k": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "pagination_token": {
+      "type": "string",
+      "minLength": 1
+    },
+    "timeout_ms": {
+      "type": "integer",
+      "minimum": 0
+    }
+  }
+}

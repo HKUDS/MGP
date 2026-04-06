@@ -1,0 +1,11 @@
+{
+  "actor_agent": "nanobot/main",
+  "user_id": "user_nanobot_demo",
+  "session_key": "cli:user_nanobot_demo",
+  "workspace_id": "workspace_demo",
+  "channel": "cli",
+  "chat_id": "cli",
+  "task_type": "process_direct",
+  "risk_level": "low",
+  "correlation_id": "trace_nanobot_demo"
+}

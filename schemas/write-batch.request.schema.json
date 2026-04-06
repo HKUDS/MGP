@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mgp.dev/schemas/write-batch.request.schema.json",
+  "title": "BatchWriteMemory Request",
+  "allOf": [
+    {
+      "$ref": "request-envelope.schema.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "policy_context": {
+          "allOf": [
+            {
+              "$ref": "policy-context.schema.json"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "requested_action": {
+                  "const": "write"
+                }
+              }
+            }
+          ]
+        },
+        "payload": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "items"
+          ],
+          "properties": {
+            "items": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "oneOf": [
+                  {
+                    "required": [
+                      "memory"
+                    ]
+                  },
+                  {
+                    "required": [
+                      "candidate"
+                    ]
+                  }
+                ],
+                "properties": {
+                  "memory": {
+                    "$ref": "memory-object.schema.json"
+                  },
+                  "candidate": {
+                    "$ref": "memory-candidate.schema.json"
+                  },
+                  "merge_hint": {
+                    "$ref": "memory-merge-hint.schema.json"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mgp.dev/schemas/memory-candidate.schema.json",
+  "title": "MGP Memory Candidate",
+  "description": "Structured runtime-side candidate before canonical memory object creation.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "candidate_kind",
+    "subject",
+    "scope",
+    "proposed_type",
+    "statement",
+    "source"
+  ],
+  "properties": {
+    "candidate_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "candidate_kind": {
+      "type": "string",
+      "enum": [
+        "assertion",
+        "confirmation",
+        "correction",
+        "derived"
+      ]
+    },
+    "subject": {
+      "$ref": "memory-object.schema.json#/$defs/subject"
+    },
+    "scope": {
+      "$ref": "memory-object.schema.json#/properties/scope"
+    },
+    "proposed_type": {
+      "$ref": "memory-object.schema.json#/properties/type"
+    },
+    "statement": {
+      "type": "string",
+      "minLength": 1
+    },
+    "content": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "source": {
+      "$ref": "memory-object.schema.json#/$defs/source"
+    },
+    "source_evidence": {
+      "type": "array",
+      "items": {
+        "$ref": "memory-evidence.schema.json"
+      }
+    },
+    "confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "sensitivity": {
+      "$ref": "memory-object.schema.json#/properties/sensitivity"
+    },
+    "retention_policy": {
+      "type": "string",
+      "minLength": 1
+    },
+    "ttl_seconds": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "merge_hint": {
+      "$ref": "memory-merge-hint.schema.json"
+    },
+    "extensions": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  }
+}

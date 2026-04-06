@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mgp.dev/schemas/adapter-manifest.schema.json",
+  "title": "MGP Adapter Manifest",
+  "description": "Self-description document for an adapter that exposes a backend through MGP.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "adapter_name",
+    "backend_kind",
+    "mgp_version",
+    "supported_memory_types",
+    "supported_scopes",
+    "supported_candidate_kinds",
+    "capabilities"
+  ],
+  "properties": {
+    "adapter_name": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Human-readable identifier for the adapter."
+    },
+    "backend_kind": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Backend category such as vector_db, graph_db, file, api, or in_memory."
+    },
+    "mgp_version": {
+      "type": "string",
+      "pattern": "^v?[0-9]+\\.[0-9]+(?:\\.[0-9]+)?$",
+      "description": "MGP specification version supported by the adapter."
+    },
+    "supported_memory_types": {
+      "type": "array",
+      "description": "Memory object types supported by the adapter.",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "memory-object.schema.json#/properties/type"
+      }
+    },
+    "supported_scopes": {
+      "type": "array",
+      "description": "Memory scopes supported by the adapter.",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "memory-object.schema.json#/properties/scope"
+      }
+    },
+    "supported_candidate_kinds": {
+      "type": "array",
+      "description": "Memory candidate kinds that this adapter or gateway can accept and map.",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": [
+          "assertion",
+          "confirmation",
+          "correction",
+          "derived"
+        ]
+      }
+    },
+    "capabilities": {
+      "$ref": "backend-capabilities.schema.json"
+    },
+    "default_prompt_view": {
+      "$ref": "return-mode.schema.json",
+      "description": "Preferred default prompt-safe rendering mode for this adapter."
+    },
+    "extension_namespaces": {
+      "type": "array",
+      "description": "Namespace prefixes understood by this adapter.",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9][a-z0-9_-]*$"
+      }
+    }
+  }
+}

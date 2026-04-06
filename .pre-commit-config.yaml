@@ -1,0 +1,32 @@
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.11.0
+    hooks:
+      - id: ruff-check
+      - id: ruff-format
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: check-json
+      - id: check-yaml
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+
+  - repo: local
+    hooks:
+      - id: mgp-validate-schemas
+        name: Validate MGP schemas
+        entry: python scripts/validate_schemas.py
+        language: system
+        pass_filenames: false
+      - id: mgp-validate-openapi
+        name: Validate MGP OpenAPI
+        entry: python scripts/validate_openapi.py
+        language: system
+        pass_filenames: false
+      - id: mgp-check-contract-drift
+        name: Check MGP contract drift
+        entry: python scripts/check_contract_drift.py
+        language: system
+        pass_filenames: false

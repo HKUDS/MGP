@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mgp.dev/schemas/error-code.schema.json",
+  "title": "MGP Error Code",
+  "description": "Canonical protocol error codes for MGP envelopes and partial-failure reporting.",
+  "type": "string",
+  "enum": [
+    "MGP_INVALID_OBJECT",
+    "MGP_UNSUPPORTED_VERSION",
+    "MGP_UNSUPPORTED_CAPABILITY",
+    "MGP_POLICY_DENIED",
+    "MGP_MEMORY_NOT_FOUND",
+    "MGP_TASK_NOT_FOUND",
+    "MGP_SCOPE_VIOLATION",
+    "MGP_CONFLICT_UNRESOLVED",
+    "MGP_BACKEND_ERROR"
+  ]
+}

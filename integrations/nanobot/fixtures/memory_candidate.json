@@ -1,0 +1,20 @@
+{
+  "memory_type": "preference",
+  "scope": "user",
+  "sensitivity": "internal",
+  "source_kind": "chat",
+  "source_ref": "nanobot:cli:process_direct_demo",
+  "content": {
+    "statement": "User prefers concise replies during quiet hours from 22:00-07:00.",
+    "summary": "User prefers concise replies during quiet hours from 22:00-07:00.",
+    "keywords": ["concise", "quiet_hours"],
+    "preference": "concise replies during quiet hours",
+    "preference_key": "response_style",
+    "preference_value": "concise",
+    "quiet_hours": "22:00-07:00",
+    "response_style": "concise"
+  },
+  "extensions": {
+    "nanobot:origin": "process_direct_demo"
+  }
+}

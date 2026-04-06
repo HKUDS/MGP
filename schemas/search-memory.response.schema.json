@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mgp.dev/schemas/search-memory.response.schema.json",
+  "title": "SearchMemory Response",
+  "allOf": [
+    {
+      "$ref": "response-envelope.schema.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "additionalProperties": false,
+          "required": [
+            "results"
+          ],
+          "properties": {
+            "results": {
+              "type": "array",
+              "items": {
+                "$ref": "search-result-item.schema.json"
+              }
+            },
+            "effective_intent": {
+              "$ref": "recall-intent.schema.json"
+            },
+            "next_token": {
+              "type": "string"
+            },
+            "partial_failure": {
+              "$ref": "partial-failure.schema.json"
+            }
+          }
+        }
+      }
+    }
+  ]
+}
