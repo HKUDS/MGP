@@ -1,5 +1,5 @@
 # Locked direct dependencies for the reference gateway.
 # Refresh by resolving in a Python 3.11+ virtual environment.
-fastapi==0.128.8
+fastapi==0.135.3
 jsonschema==4.25.1
 uvicorn==0.39.0
