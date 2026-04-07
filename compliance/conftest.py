@@ -8,6 +8,7 @@ import subprocess
 import sys
 from pathlib import Path
 from typing import Any, Callable
+from urllib.parse import parse_qs, unquote, urlparse
 from uuid import uuid4
 
 import httpx
@@ -32,6 +33,82 @@ def load_json(path: Path) -> dict[str, Any]:
         return json.load(handle)
 
 
+def _split_oceanbase_uri(raw_uri: str) -> tuple[str, int]:
+    host, _, port_text = raw_uri.partition(":")
+    return host or "127.0.0.1", int(port_text or "2881")
+
+
+def _oceanbase_connection_settings(env: dict[str, str]) -> dict[str, Any]:
+    dsn = env.get("MGP_OCEANBASE_DSN")
+    if dsn:
+        parsed = urlparse(dsn)
+        if not parsed.hostname:
+            raise RuntimeError("MGP_OCEANBASE_DSN must include a hostname for OceanBase tests.")
+        query = parse_qs(parsed.query)
+        username = unquote(parsed.username or "root")
+        tenant = query.get("tenant", [env.get("MGP_OCEANBASE_TENANT") or "sys"])[0]
+        if "@" in username and "tenant" not in query:
+            username, tenant = username.rsplit("@", 1)
+        return {
+            "host": parsed.hostname,
+            "port": parsed.port or 2881,
+            "user": username,
+            "tenant": tenant,
+            "password": unquote(parsed.password or ""),
+            "database": parsed.path.lstrip("/") or env.get("MGP_OCEANBASE_DATABASE") or "test",
+        }
+
+    host, port = _split_oceanbase_uri(env.get("MGP_OCEANBASE_URI", "127.0.0.1:2881"))
+    return {
+        "host": host,
+        "port": port,
+        "user": env.get("MGP_OCEANBASE_USER", "root"),
+        "tenant": env.get("MGP_OCEANBASE_TENANT", "sys"),
+        "password": env.get("MGP_OCEANBASE_PASSWORD", ""),
+        "database": env.get("MGP_OCEANBASE_DATABASE", "test"),
+    }
+
+
+def _prepare_oceanbase_database(env: dict[str, str]) -> tuple[str, dict[str, Any]]:
+    import pymysql
+
+    settings = _oceanbase_connection_settings(env)
+    database_name = f"{settings['database']}_mgp_{uuid4().hex[:8]}"
+    connection = pymysql.connect(
+        host=settings["host"],
+        port=settings["port"],
+        user=f"{settings['user']}@{settings['tenant']}",
+        password=settings["password"],
+        charset="utf8mb4",
+        autocommit=True,
+    )
+    try:
+        with connection.cursor() as cursor:
+            cursor.execute(f"CREATE DATABASE IF NOT EXISTS `{database_name}`")
+    finally:
+        connection.close()
+    env["MGP_OCEANBASE_DATABASE"] = database_name
+    return database_name, settings
+
+
+def _drop_oceanbase_database(database_name: str, settings: dict[str, Any]) -> None:
+    import pymysql
+
+    connection = pymysql.connect(
+        host=settings["host"],
+        port=settings["port"],
+        user=f"{settings['user']}@{settings['tenant']}",
+        password=settings["password"],
+        charset="utf8mb4",
+        autocommit=True,
+    )
+    try:
+        with connection.cursor() as cursor:
+            cursor.execute(f"DROP DATABASE IF EXISTS `{database_name}`")
+    finally:
+        connection.close()
+
+
 @pytest.fixture(scope="session")
 def root_dir() -> Path:
     return ROOT
@@ -45,6 +122,7 @@ def schema_dir() -> Path:
 @pytest.fixture(scope="session")
 def base_url(gateway_process) -> str:
     return gateway_process["base_url"]
+
 
 @pytest.fixture(scope="session")
 def gateway_process(tmp_path_factory: pytest.TempPathFactory):
@@ -74,9 +152,20 @@ def gateway_process(tmp_path_factory: pytest.TempPathFactory):
     env["MGP_LANCEDB_EMBEDDING_PROVIDER"] = env.get("MGP_LANCEDB_EMBEDDING_PROVIDER", "fake")
     env["MGP_LANCEDB_EMBEDDING_MODEL"] = env.get("MGP_LANCEDB_EMBEDDING_MODEL", "mgp-fake-embedding-v1")
     env["MGP_LANCEDB_EMBEDDING_DIM"] = env.get("MGP_LANCEDB_EMBEDDING_DIM", "64")
+    oceanbase_database_name: str | None = None
+    oceanbase_admin_settings: dict[str, Any] | None = None
 
     if env["MGP_ADAPTER"] == "postgres" and not env.get("MGP_POSTGRES_DSN"):
         pytest.skip("Postgres adapter tests require MGP_POSTGRES_DSN.")
+
+    if env["MGP_ADAPTER"] == "oceanbase":
+        if importlib.util.find_spec("pyobvector") is None:
+            pytest.skip(
+                "OceanBase adapter tests require pyobvector. Install it with: pip install pyobvector sqlglot==26.0.1"
+            )
+        if not (env.get("MGP_OCEANBASE_DSN") or env.get("MGP_OCEANBASE_URI")):
+            pytest.skip("OceanBase adapter tests require MGP_OCEANBASE_DSN or MGP_OCEANBASE_URI.")
+        oceanbase_database_name, oceanbase_admin_settings = _prepare_oceanbase_database(env)
 
     if env["MGP_ADAPTER"] == "lancedb" and importlib.util.find_spec("lancedb") is None:
         pytest.skip("LanceDB adapter tests require lancedb. Install it with: pip install lancedb")
@@ -150,6 +239,8 @@ def gateway_process(tmp_path_factory: pytest.TempPathFactory):
         process.kill()
     finally:
         log_handle.close()
+        if oceanbase_database_name is not None and oceanbase_admin_settings is not None:
+            _drop_oceanbase_database(oceanbase_database_name, oceanbase_admin_settings)
 
 
 @pytest.fixture

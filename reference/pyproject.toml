@@ -36,6 +36,10 @@ Repository = "https://github.com/larfii/MGP"
 postgres = [
   "psycopg[binary]>=3.2",
 ]
+oceanbase = [
+  "pyobvector>=0.2.25",
+  "sqlglot==26.0.1",
+]
 lancedb = [
   "lancedb>=0.27",
 ]
@@ -54,6 +58,7 @@ include = ["gateway*", "audit*", "policy*", "adapters*", "schemas*", "openapi*"]
 "adapters.file" = ["manifest.json"]
 "adapters.graph" = ["manifest.json"]
 "adapters.postgres" = ["manifest.json", "migrations/*.sql"]
+"adapters.oceanbase" = ["manifest.json"]
 "adapters.lancedb" = ["manifest.json"]
 "adapters.mem0" = ["manifest.json"]
 "adapters.zep" = ["manifest.json"]
