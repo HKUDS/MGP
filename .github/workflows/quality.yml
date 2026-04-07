@@ -76,7 +76,7 @@ jobs:
 
       - name: Upload coverage artifact
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: compliance-coverage-${{ matrix.adapter }}-py${{ matrix.python-version }}
           path: coverage.xml
@@ -105,7 +105,7 @@ jobs:
 
       - name: Upload SDK coverage
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: sdk-coverage
           path: coverage.xml
