@@ -12,7 +12,7 @@ dependencies = [
   "httpx>=0.28"
 ]
 authors = [
-  { name = "larfii" }
+  { name = "hkuds" }
 ]
 license = { text = "MIT" }
 classifiers = [
@@ -34,9 +34,9 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/larfii/MGP"
-Documentation = "https://larfii.github.io/MGP/"
-Repository = "https://github.com/larfii/MGP"
+Homepage = "https://github.com/hkuds/MGP"
+Documentation = "https://hkuds.github.io/MGP/"
+Repository = "https://github.com/hkuds/MGP"
 
 [tool.setuptools]
 package-dir = {"" = "."}

@@ -61,7 +61,7 @@ For real-provider validation, point `--config` at an isolated Nanobot config out
   "What is my reply preference token?" \
   --mode primary \
   --gateway-url http://127.0.0.1:18080 \
-  --config /Users/larfii/.nanobot-mgp-openrouter/config.json \
+  --config /Users/hkuds/.nanobot-mgp-openrouter/config.json \
   --session cli:recall-primary \
   --chat-id recall-primary \
   --user-id demo-user \

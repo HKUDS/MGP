@@ -17,7 +17,7 @@ This guide walks you through setting up MGP, starting the reference gateway, and
 ## 1. Clone And Install
 
 ```bash
-git clone https://github.com/larfii/MGP.git
+git clone https://github.com/hkuds/MGP.git
 cd MGP
 make install
 ```
