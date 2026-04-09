@@ -55,7 +55,7 @@ jobs:
 
           | Hook | What it does |
           |------|---------------|
-          | `ruff-check` | Runs Ruff lint checks |
+          | `ruff` | Runs Ruff lint checks |
           | `ruff-format` | Applies Ruff formatting |
           | `check-json` | Validates JSON files |
           | `check-yaml` | Validates YAML files |
