@@ -174,7 +174,7 @@ def test_primary_mode_injects_recall_prompt_context() -> None:
         mode="primary",
         executed=True,
         degraded=False,
-        prompt_context="# Governed Memory Recall\n- type=preference scope=user mode=raw content={\"theme\": \"dark\"}",
+        prompt_context='# Governed Memory Recall\n- type=preference scope=user mode=raw content={"theme": "dark"}',
         results=[],
         used_prompt=True,
     )

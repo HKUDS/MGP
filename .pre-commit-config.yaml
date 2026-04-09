@@ -3,6 +3,7 @@ repos:
     rev: v0.11.0
     hooks:
       - id: ruff
+        args: ["--fix"]
       - id: ruff-format
 
   - repo: https://github.com/pre-commit/pre-commit-hooks
@@ -10,6 +11,7 @@ repos:
     hooks:
       - id: check-json
       - id: check-yaml
+        args: ["--unsafe"]
       - id: end-of-file-fixer
       - id: trailing-whitespace
 

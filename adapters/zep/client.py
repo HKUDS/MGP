@@ -22,8 +22,7 @@ class ZepClient:
     def __init__(self, *, api_key: str, base_url: str | None = None) -> None:
         if ZepClientSdk is None:
             raise RuntimeError(
-                "Zep SDK integration requested but zep_cloud is not installed. "
-                "Install it with: pip install zep-cloud"
+                "Zep SDK integration requested but zep_cloud is not installed. Install it with: pip install zep-cloud"
             )
 
         kwargs: dict[str, Any] = {"api_key": api_key}

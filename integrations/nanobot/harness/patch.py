@@ -182,8 +182,10 @@ def patch_agent_loop(
         on_progress: Callable[[str], Any] | None = None,
     ) -> Any:
         context_builder._mgp_active_sender_id = getattr(msg, "sender_id", None)
-        context_builder._mgp_active_session_key = session_key or getattr(msg, "session_key", None) or (
-            f"{getattr(msg, 'channel', 'cli')}:{getattr(msg, 'chat_id', 'direct')}"
+        context_builder._mgp_active_session_key = (
+            session_key
+            or getattr(msg, "session_key", None)
+            or (f"{getattr(msg, 'channel', 'cli')}:{getattr(msg, 'chat_id', 'direct')}")
         )
         context_builder._mgp_active_channel = getattr(msg, "channel", None)
         context_builder._mgp_active_chat_id = getattr(msg, "chat_id", None)

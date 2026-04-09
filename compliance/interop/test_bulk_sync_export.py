@@ -45,7 +45,9 @@ def test_export_and_import_round_trip(mgp_post, make_memory, make_request):
     memories = exported.json()["data"]["memories"]
     exported_memory = next(item for item in memories if item["memory_id"] == memory["memory_id"])
 
-    mgp_post("/mgp/purge", make_request(action="purge", payload={"memory_id": memory["memory_id"], "reason": "round_trip"}))
+    mgp_post(
+        "/mgp/purge", make_request(action="purge", payload={"memory_id": memory["memory_id"], "reason": "round_trip"})
+    )
     missing = mgp_post("/mgp/get", make_request(action="read", payload={"memory_id": memory["memory_id"]}))
     assert missing.status_code == 404
 

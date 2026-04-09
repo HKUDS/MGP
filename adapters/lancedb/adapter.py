@@ -27,6 +27,7 @@ except Exception:  # pragma: no cover - optional dependency
     lancedb = None
     pa = None
 
+
 def _parse_int(value: str | None) -> int | None:
     if value is None or not value.strip():
         return None
@@ -247,8 +248,8 @@ class LanceDBAdapter(BaseAdapter):
             hybrid_enabled if hybrid_enabled is not None else env_flag("MGP_LANCEDB_ENABLE_HYBRID", True)
         )
         self._embedding_provider = (
-            embedding_provider or os.getenv("MGP_LANCEDB_EMBEDDING_PROVIDER") or "openai"
-        ).strip().lower()
+            (embedding_provider or os.getenv("MGP_LANCEDB_EMBEDDING_PROVIDER") or "openai").strip().lower()
+        )
         self._embedding_model = (
             embedding_model or os.getenv("MGP_LANCEDB_EMBEDDING_MODEL") or self._default_embedding_model()
         ).strip()
@@ -624,12 +625,7 @@ class LanceDBAdapter(BaseAdapter):
 
     def _upsert_memory(self, memory: dict[str, Any]) -> None:
         row = self._memory_to_row(memory)
-        (
-            self._table.merge_insert("memory_id")
-            .when_matched_update_all()
-            .when_not_matched_insert_all()
-            .execute([row])
-        )
+        (self._table.merge_insert("memory_id").when_matched_update_all().when_not_matched_insert_all().execute([row]))
 
     def _get_row(self, memory_id: str) -> dict[str, Any] | None:
         rows = self._table_rows(filter_expression=f"memory_id = {_quote_sql(memory_id)}", limit=1)

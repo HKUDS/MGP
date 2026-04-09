@@ -46,6 +46,7 @@ def schema_dir() -> Path:
 def base_url(gateway_process) -> str:
     return gateway_process["base_url"]
 
+
 @pytest.fixture(scope="session")
 def gateway_process(tmp_path_factory: pytest.TempPathFactory):
     if not VENV_PYTHON.exists():

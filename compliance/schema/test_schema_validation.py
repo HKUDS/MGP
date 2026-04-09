@@ -1,9 +1,10 @@
 from __future__ import annotations
 
+import importlib
 import json
-from pathlib import Path
 import subprocess
 import sys
+from pathlib import Path
 
 import pytest
 import yaml
@@ -13,8 +14,9 @@ REFERENCE_DIR = ROOT / "reference"
 if str(REFERENCE_DIR) not in sys.path:
     sys.path.insert(0, str(REFERENCE_DIR))
 
-from gateway.validation import GatewayValidationError, validate_against_schema
-
+gateway_validation = importlib.import_module("gateway.validation")
+GatewayValidationError = gateway_validation.GatewayValidationError
+validate_against_schema = gateway_validation.validate_against_schema
 OPENAPI_PATH = ROOT / "openapi" / "mgp-openapi.yaml"
 
 
@@ -388,8 +390,8 @@ def test_initialize_response_valid():
             "protocol_capabilities": {
                 "supports_discovery": True,
                 "supports_initialize": True,
-            "supports_runtime_capability_negotiation": True,
-            "supports_negotiated_capabilities": True,
+                "supports_runtime_capability_negotiation": True,
+                "supports_negotiated_capabilities": True,
                 "requires_initialize": False,
                 "supports_stateless_http": True,
                 "supports_streamable_http": False,

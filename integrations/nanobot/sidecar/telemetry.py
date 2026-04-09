@@ -5,8 +5,7 @@ from typing import Any, Protocol
 
 
 class SidecarTelemetry(Protocol):
-    def emit(self, event: str, **fields: Any) -> None:
-        ...
+    def emit(self, event: str, **fields: Any) -> None: ...
 
 
 class NullTelemetry:

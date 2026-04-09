@@ -31,6 +31,7 @@ try:  # pragma: no cover - optional dependency
 except Exception:  # pragma: no cover - optional dependency
     Mem0LegacySdk = None
 
+
 def _parse_json_object(value: Any) -> dict[str, Any] | None:
     if isinstance(value, dict):
         return copy.deepcopy(value)

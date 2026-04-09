@@ -82,7 +82,7 @@ class PostgresAdapter(BaseAdapter):
         sql = f"""
             SELECT memory_json
             FROM mgp_memories
-            WHERE {' AND '.join(clauses)}
+            WHERE {" AND ".join(clauses)}
             ORDER BY updated_at DESC NULLS LAST, created_at DESC NULLS LAST, memory_id ASC
             LIMIT %s
         """

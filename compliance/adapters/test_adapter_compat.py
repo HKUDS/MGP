@@ -1,15 +1,17 @@
 from __future__ import annotations
 
+import importlib
 import sys
 from pathlib import Path
-
 
 ROOT = Path(__file__).resolve().parents[2]
 REFERENCE_DIR = ROOT / "reference"
 if str(REFERENCE_DIR) not in sys.path:
     sys.path.insert(0, str(REFERENCE_DIR))
 
-from gateway.validation import validate_adapter_manifest, validate_capabilities_response
+gateway_validation = importlib.import_module("gateway.validation")
+validate_adapter_manifest = gateway_validation.validate_adapter_manifest
+validate_capabilities_response = gateway_validation.validate_capabilities_response
 
 
 def test_capabilities_returns_valid_manifest(mgp_get):

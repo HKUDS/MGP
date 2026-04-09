@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import importlib
 import json
 import os
 import sys
@@ -13,7 +14,10 @@ SDK_PATH = ROOT / "sdk" / "python"
 if str(SDK_PATH) not in sys.path:
     sys.path.insert(0, str(SDK_PATH))
 
-from mgp_client import MGPClient, PolicyContextBuilder, SearchQuery
+mgp_client = importlib.import_module("mgp_client")
+MGPClient = mgp_client.MGPClient
+PolicyContextBuilder = mgp_client.PolicyContextBuilder
+SearchQuery = mgp_client.SearchQuery
 
 
 def utc_now() -> str:
