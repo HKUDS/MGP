@@ -32,6 +32,17 @@ class AdapterRouter:
             from adapters.postgres import PostgresAdapter
 
             return PostgresAdapter(dsn=self.settings.postgres_dsn)
+        if normalized == "oceanbase":
+            from adapters.oceanbase import OceanBaseAdapter
+
+            return OceanBaseAdapter(
+                dsn=self.settings.oceanbase_dsn,
+                uri=self.settings.oceanbase_uri,
+                user=self.settings.oceanbase_user,
+                password=self.settings.oceanbase_password,
+                database=self.settings.oceanbase_database,
+                tenant=self.settings.oceanbase_tenant,
+            )
         if normalized == "lancedb":
             from adapters.lancedb import LanceDBAdapter
 

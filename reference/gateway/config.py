@@ -36,6 +36,12 @@ class GatewaySettings:
     file_storage_dir: str | None = None
     graph_db_path: str | None = None
     postgres_dsn: str | None = None
+    oceanbase_dsn: str | None = None
+    oceanbase_uri: str | None = None
+    oceanbase_user: str | None = None
+    oceanbase_password: str | None = None
+    oceanbase_database: str | None = None
+    oceanbase_tenant: str | None = None
     lancedb_dir: str | None = None
     lancedb_table: str | None = None
     lancedb_enable_hybrid: bool = True
@@ -67,6 +73,12 @@ class GatewaySettings:
             file_storage_dir=os.getenv("MGP_FILE_STORAGE_DIR"),
             graph_db_path=os.getenv("MGP_GRAPH_DB_PATH"),
             postgres_dsn=os.getenv("MGP_POSTGRES_DSN"),
+            oceanbase_dsn=os.getenv("MGP_OCEANBASE_DSN"),
+            oceanbase_uri=os.getenv("MGP_OCEANBASE_URI"),
+            oceanbase_user=os.getenv("MGP_OCEANBASE_USER"),
+            oceanbase_password=os.getenv("MGP_OCEANBASE_PASSWORD"),
+            oceanbase_database=os.getenv("MGP_OCEANBASE_DATABASE"),
+            oceanbase_tenant=os.getenv("MGP_OCEANBASE_TENANT"),
             lancedb_dir=os.getenv("MGP_LANCEDB_DIR"),
             lancedb_table=os.getenv("MGP_LANCEDB_TABLE"),
             lancedb_enable_hybrid=_env_flag("MGP_LANCEDB_ENABLE_HYBRID", True),
@@ -147,6 +159,18 @@ def apply_settings_environment(settings: GatewaySettings) -> None:
         os.environ["MGP_GRAPH_DB_PATH"] = settings.graph_db_path
     if settings.postgres_dsn is not None:
         os.environ["MGP_POSTGRES_DSN"] = settings.postgres_dsn
+    if settings.oceanbase_dsn is not None:
+        os.environ["MGP_OCEANBASE_DSN"] = settings.oceanbase_dsn
+    if settings.oceanbase_uri is not None:
+        os.environ["MGP_OCEANBASE_URI"] = settings.oceanbase_uri
+    if settings.oceanbase_user is not None:
+        os.environ["MGP_OCEANBASE_USER"] = settings.oceanbase_user
+    if settings.oceanbase_password is not None:
+        os.environ["MGP_OCEANBASE_PASSWORD"] = settings.oceanbase_password
+    if settings.oceanbase_database is not None:
+        os.environ["MGP_OCEANBASE_DATABASE"] = settings.oceanbase_database
+    if settings.oceanbase_tenant is not None:
+        os.environ["MGP_OCEANBASE_TENANT"] = settings.oceanbase_tenant
     if settings.lancedb_dir is not None:
         os.environ["MGP_LANCEDB_DIR"] = settings.lancedb_dir
     if settings.lancedb_table is not None:
