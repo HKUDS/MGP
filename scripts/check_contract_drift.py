@@ -337,9 +337,7 @@ def _validate_operation_contracts(openapi: dict[str, Any]) -> None:
             raise ContractDriftError(f"Missing {method.upper()} operation for {path_name}")
 
         if "request" in expectations:
-            request_schema_ref = (
-                operation["requestBody"]["content"]["application/json"]["schema"]["$ref"]
-            )
+            request_schema_ref = operation["requestBody"]["content"]["application/json"]["schema"]["$ref"]
             _assert_equal(
                 request_schema_ref,
                 _schema_ref(cast(str, expectations["request"])),

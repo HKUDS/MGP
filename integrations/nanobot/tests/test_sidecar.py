@@ -251,9 +251,7 @@ def test_commit_builds_canonical_memory_and_context() -> None:
     assert policy_context["requested_action"] == "write"
     assert policy_context["tenant_id"] == "workspace_demo"
     candidate_payload = (
-        protocol_candidate.to_payload()
-        if hasattr(protocol_candidate, "to_payload")
-        else protocol_candidate
+        protocol_candidate.to_payload() if hasattr(protocol_candidate, "to_payload") else protocol_candidate
     )
     assert candidate_payload["subject"] == {"kind": "user", "id": "user_nanobot_demo"}
     assert candidate_payload["proposed_type"] == "preference"

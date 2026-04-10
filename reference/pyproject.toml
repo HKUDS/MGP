@@ -14,7 +14,7 @@ dependencies = [
   "jsonschema>=4.23",
 ]
 authors = [
-  { name = "larfii" }
+  { name = "Zirui Guo" }
 ]
 license = { text = "MIT" }
 classifiers = [
@@ -28,9 +28,9 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/larfii/MGP"
-Documentation = "https://larfii.github.io/MGP/"
-Repository = "https://github.com/larfii/MGP"
+Homepage = "https://github.com/hkuds/MGP"
+Documentation = "https://hkuds.github.io/MGP/"
+Repository = "https://github.com/hkuds/MGP"
 
 [project.optional-dependencies]
 postgres = [

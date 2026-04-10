@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import importlib
 import json
 import os
 import sys
@@ -10,7 +11,12 @@ SDK_PATH = ROOT / "sdk" / "python"
 if str(SDK_PATH) not in sys.path:
     sys.path.insert(0, str(SDK_PATH))
 
-from integrations.nanobot.sidecar import MemoryCandidate, NanobotMGPSidecar, NanobotRuntimeState, NanobotSidecarConfig, RecallIntent
+nanobot_sidecar = importlib.import_module("integrations.nanobot.sidecar")
+MemoryCandidate = nanobot_sidecar.MemoryCandidate
+NanobotMGPSidecar = nanobot_sidecar.NanobotMGPSidecar
+NanobotRuntimeState = nanobot_sidecar.NanobotRuntimeState
+NanobotSidecarConfig = nanobot_sidecar.NanobotSidecarConfig
+RecallIntent = nanobot_sidecar.RecallIntent
 
 
 def main() -> None:

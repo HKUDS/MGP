@@ -17,7 +17,7 @@
 ## 1. 克隆与安装
 
 ```bash
-git clone https://github.com/larfii/MGP.git
+git clone https://github.com/hkuds/MGP.git
 cd MGP
 make install
 ```

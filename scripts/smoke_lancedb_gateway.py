@@ -55,6 +55,7 @@ def _load_dotenv(env: dict[str, str]) -> None:
         value = value.strip().strip("'").strip('"')
         env.setdefault(key, value)
 
+
 def _policy_context(action: str) -> dict[str, Any]:
     return {
         "actor_agent": "lancedb-smoke",

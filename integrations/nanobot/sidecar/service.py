@@ -44,16 +44,14 @@ class SupportsMGPClient(Protocol):
         policy_context: PolicyContext | dict[str, Any],
         search: Any,
         request_id: str | None = None,
-    ) -> Any:
-        ...
+    ) -> Any: ...
 
     def write_memory(
         self,
         policy_context: PolicyContext | dict[str, Any],
         memory: dict[str, Any],
         request_id: str | None = None,
-    ) -> Any:
-        ...
+    ) -> Any: ...
 
     def write_candidate(
         self,
@@ -62,11 +60,9 @@ class SupportsMGPClient(Protocol):
         *,
         merge_hint: dict[str, Any] | None = None,
         request_id: str | None = None,
-    ) -> Any:
-        ...
+    ) -> Any: ...
 
-    def close(self) -> None:
-        ...
+    def close(self) -> None: ...
 
 
 ClientFactory = Callable[[str, float, dict[str, str]], SupportsMGPClient]

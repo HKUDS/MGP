@@ -6,11 +6,11 @@
 
 [![Protocol](https://img.shields.io/badge/protocol-v0.1.0-blue)](#)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
-[![CI](https://img.shields.io/github/actions/workflow/status/larfii/MGP/quality.yml?label=CI)](https://github.com/larfii/MGP/actions)
-[![Docs](https://img.shields.io/badge/docs-mkdocs-blue)](https://larfii.github.io/MGP/)
+[![CI](https://img.shields.io/github/actions/workflow/status/hkuds/MGP/quality.yml?label=CI)](https://github.com/hkuds/MGP/actions)
+[![Docs](https://img.shields.io/badge/docs-mkdocs-blue)](https://hkuds.github.io/MGP/)
 [![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-blue)](#)
 
-[English](README.md) · [简体中文](README.zh.md) · [Documentation](https://larfii.github.io/MGP/) · [Getting Started](docs/getting-started.md)
+[English](README.md) · [简体中文](README.zh.md) · [Documentation](https://hkuds.github.io/MGP/) · [Getting Started](docs/getting-started.md)
 
 </div>
 
@@ -78,7 +78,7 @@ flowchart LR
 Get a governed memory gateway running in under 2 minutes:
 
 ```bash
-git clone https://github.com/larfii/MGP.git
+git clone https://github.com/hkuds/MGP.git
 cd MGP
 make install    # creates .venv/ and installs everything
 make serve      # starts the gateway at http://127.0.0.1:8080

@@ -77,7 +77,10 @@ def test_search_can_return_mixed_modes(mgp_post, make_memory, make_request):
     restricted = make_memory(
         memory_type="semantic_fact",
         sensitivity="restricted",
-        content={"statement": f"Remember this fact: restricted token is {token}.", "fact": f"restricted token is {token}."},
+        content={
+            "statement": f"Remember this fact: restricted token is {token}.",
+            "fact": f"restricted token is {token}.",
+        },
     )
     mgp_post("/mgp/write", make_request(action="write", payload={"memory": visible}))
     mgp_post("/mgp/write", make_request(action="write", payload={"memory": restricted}))

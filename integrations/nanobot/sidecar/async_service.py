@@ -44,8 +44,7 @@ class SupportsAsyncMGPClient(Protocol):
         policy_context: PolicyContext | dict[str, Any],
         search: Any,
         request_id: str | None = None,
-    ) -> Any:
-        ...
+    ) -> Any: ...
 
     async def write_candidate(
         self,
@@ -54,11 +53,9 @@ class SupportsAsyncMGPClient(Protocol):
         *,
         merge_hint: dict[str, Any] | None = None,
         request_id: str | None = None,
-    ) -> Any:
-        ...
+    ) -> Any: ...
 
-    async def close(self) -> None:
-        ...
+    async def close(self) -> None: ...
 
 
 AsyncClientFactory = Callable[[str, float, dict[str, str]], SupportsAsyncMGPClient]

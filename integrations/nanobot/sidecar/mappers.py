@@ -83,11 +83,7 @@ def normalize_recall_query(query: str) -> str:
         "what",
         "you",
     }
-    tokens = [
-        token
-        for token in re.findall(r"[a-zA-Z0-9][a-zA-Z0-9_-]*", lowered)
-        if token not in stopwords
-    ]
+    tokens = [token for token in re.findall(r"[a-zA-Z0-9][a-zA-Z0-9_-]*", lowered) if token not in stopwords]
     candidate = " ".join(tokens[:6]).strip()
     return candidate or text
 

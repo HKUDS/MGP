@@ -1,0 +1,69 @@
+name: Linting and Formatting
+
+on:
+  push:
+    branches: [main, dev]
+  pull_request:
+    branches: [main, dev]
+    types: [opened, synchronize, reopened, ready_for_review]
+
+permissions:
+  contents: read
+
+jobs:
+  lint-and-format:
+    name: Linting and Formatting
+    if: ${{ github.event_name != 'pull_request' || !github.event.pull_request.draft }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.x"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pre-commit jsonschema PyYAML
+
+      - name: Run pre-commit
+        id: pre-commit
+        run: pre-commit run --all-files --show-diff-on-failure
+
+      - name: Post fix instructions on failure
+        if: failure() && steps.pre-commit.outcome == 'failure'
+        run: |
+          cat >> "$GITHUB_STEP_SUMMARY" << 'EOF'
+          ## Linting / Formatting checks failed
+
+          Pre-commit found issues in the repository. Fix them locally and push again:
+
+          ```bash
+          pip install pre-commit
+          pre-commit install
+          pre-commit run --all-files
+          git add -u
+          git commit -m "fix: apply pre-commit fixes"
+          git push
+          ```
+
+          ### What was checked
+
+          | Hook | What it does |
+          |------|---------------|
+          | `ruff` | Runs Ruff lint checks |
+          | `ruff-format` | Applies Ruff formatting |
+          | `check-json` | Validates JSON files |
+          | `check-yaml` | Validates YAML files |
+          | `end-of-file-fixer` | Ensures files end with a newline |
+          | `trailing-whitespace` | Removes trailing whitespace |
+          | `mgp-validate-schemas` | Validates published schemas |
+          | `mgp-validate-openapi` | Validates published OpenAPI |
+          | `mgp-check-contract-drift` | Checks contract drift |
+
+          Some hooks can auto-fix files locally, while validation hooks require manual changes when they fail.
+          EOF

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import importlib
 import json
 import os
 import sys
@@ -11,7 +12,9 @@ SDK_PATH = ROOT / "sdk" / "python"
 if str(SDK_PATH) not in sys.path:
     sys.path.insert(0, str(SDK_PATH))
 
-from mgp_client import MGPClient, PolicyContextBuilder
+mgp_client = importlib.import_module("mgp_client")
+MGPClient = mgp_client.MGPClient
+PolicyContextBuilder = mgp_client.PolicyContextBuilder
 
 
 def main() -> None:
@@ -25,7 +28,11 @@ def main() -> None:
                 "subject": {"kind": "user", "id": "user_interop"},
                 "scope": "user",
                 "type": "preference",
-                "content": {"statement": "User prefers dark mode.", "preference_key": "theme", "preference_value": "dark"},
+                "content": {
+                    "statement": "User prefers dark mode.",
+                    "preference_key": "theme",
+                    "preference_value": "dark",
+                },
                 "source": {"kind": "human", "ref": "chat:batch-1"},
                 "created_at": "2026-03-28T00:00:00Z",
                 "backend_ref": {"tenant_id": "tenant_interop"},
@@ -38,7 +45,11 @@ def main() -> None:
                 "subject": {"kind": "user", "id": "user_interop"},
                 "scope": "user",
                 "type": "semantic_fact",
-                "content": {"statement": "User likes espresso.", "fact": "User likes espresso.", "summary": "User likes espresso."},
+                "content": {
+                    "statement": "User likes espresso.",
+                    "fact": "User likes espresso.",
+                    "summary": "User likes espresso.",
+                },
                 "source": {"kind": "human", "ref": "chat:batch-2"},
                 "created_at": "2026-03-28T00:00:00Z",
                 "backend_ref": {"tenant_id": "tenant_interop"},

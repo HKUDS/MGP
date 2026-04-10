@@ -12,8 +12,7 @@ class SupportsGatewayClient(Protocol):
         policy_context: PolicyContext | dict[str, Any],
         search: SearchQuery | dict[str, Any],
         request_id: str | None = None,
-    ) -> Any:
-        ...
+    ) -> Any: ...
 
     def write_candidate(
         self,
@@ -22,8 +21,7 @@ class SupportsGatewayClient(Protocol):
         *,
         merge_hint: dict[str, Any] | None = None,
         request_id: str | None = None,
-    ) -> Any:
-        ...
+    ) -> Any: ...
 
 
 ClientFactory = Callable[[str, float], SupportsGatewayClient]

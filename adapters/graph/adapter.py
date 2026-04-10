@@ -65,7 +65,7 @@ class GraphAdapter(BaseAdapter):
         sql = f"""
             SELECT *
             FROM memories
-            WHERE {' AND '.join(clauses)}
+            WHERE {" AND ".join(clauses)}
             ORDER BY memory_id ASC
             LIMIT ?
         """
@@ -246,10 +246,7 @@ class GraphAdapter(BaseAdapter):
         self._connection.commit()
 
     def _ensure_column(self, table: str, column: str, definition: str) -> None:
-        existing = {
-            row["name"]
-            for row in self._connection.execute(f"PRAGMA table_info({table})")
-        }
+        existing = {row["name"] for row in self._connection.execute(f"PRAGMA table_info({table})")}
         if column not in existing:
             self._connection.execute(f"ALTER TABLE {table} ADD COLUMN {column} {definition}")
             self._connection.commit()
