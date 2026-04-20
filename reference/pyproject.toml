@@ -38,7 +38,7 @@ postgres = [
 ]
 oceanbase = [
   "pyobvector>=0.2.25",
-  "sqlglot==26.0.1",
+  "sqlglot==30.6.0",
 ]
 lancedb = [
   "lancedb>=0.27",
