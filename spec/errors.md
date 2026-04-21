@@ -78,7 +78,7 @@ Use this error when lifecycle initialization cannot choose a mutually supported 
 
 ### MGP_UNSUPPORTED_VERSION Example Scenario
 
-A client sends `supported_versions = ["0.3.0", "0.2.0"]`, but the target gateway currently supports only `0.1.0`.
+A client sends `supported_versions = ["0.3.0", "0.2.0"]`, but the target gateway currently supports only `0.1.1`.
 
 ### MGP_UNSUPPORTED_VERSION Retryability
 

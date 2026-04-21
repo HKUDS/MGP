@@ -201,7 +201,7 @@ Fetches one canonical memory object by `memory_id`.
 
 `GetMemory` may return a soft-deleted tombstone view when policy allows it.
 
-For `metadata_only` in `MGP v0.1.0`, implementations should still return a schema-valid canonical memory object with non-sensitive placeholder content rather than raw semantic payload.
+For `metadata_only` in `MGP v0.1.1`, implementations should still return a schema-valid canonical memory object with non-sensitive placeholder content rather than raw semantic payload.
 
 ## UpdateMemory
 

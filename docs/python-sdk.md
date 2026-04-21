@@ -33,5 +33,5 @@ The SDK makes the most sense when read with:
 
 - This SDK is transport-focused and independent of the reference gateway implementation.
 - `WriteMemory` can accept either canonical `memory` objects or `MemoryCandidate` payloads via `write_candidate()`.
-- Search and get responses in the current `v0.1.0` surface include `consumable_text`, `return_mode`, and `redaction_info`; runtimes should prefer those fields over assuming raw `memory.content` is always prompt-safe.
+- Search and get responses in the current `v0.1.1` surface include `consumable_text`, `return_mode`, and `redaction_info`; runtimes should prefer those fields over assuming raw `memory.content` is always prompt-safe.
 - The client is designed to align with the HTTP binding and can be used against any gateway that implements the MGP protocol surface.
