@@ -108,7 +108,7 @@ flowchart LR
 | `schemas/` | 机器可读协议合同 | memory object、请求响应 envelope、capabilities、tasks |
 | `openapi/` | HTTP 绑定定义 | `mgp-openapi.yaml` |
 | `reference/` | 可运行的 Python 参考网关 | FastAPI app、validation、policy hook、audit sink、task store |
-| `adapters/` | 后端归一化层 | in-memory、file、graph、PostgreSQL、LanceDB、Mem0、Zep 适配器与 manifest |
+| `adapters/` | 后端归一化层 | in-memory、file、graph、PostgreSQL、OceanBase、LanceDB、Mem0、Zep 适配器与 manifest |
 | `compliance/` | 协议验证层 | schema、lifecycle、search、audit、adapter、interop 的 pytest 套件 |
 | `sdk/python/` | 运行时客户端层 | `MGPClient`、`PolicyContextBuilder`、search 与 candidate helper |
 | `integrations/` | 运行时接入路径 | sidecar bridge、harness、tests，以及具体 runtime 接入参考路径 |

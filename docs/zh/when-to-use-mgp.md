@@ -76,4 +76,4 @@ MGP 不是想替代所有应用层 memory SDK。
 1. 先用 reference gateway 和 `mgp-client` 跑通。
 2. 先通过 sidecar 以 `shadow` mode 接入。
 3. 稳定后再切换到 native SDK 路径。
-4. 当需要自管理生产部署时，引入 PostgreSQL 这类生产导向 backend。
+4. 当需要自管理生产部署时，引入 PostgreSQL 或 OceanBase 这类生产导向 backend。

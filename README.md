@@ -43,6 +43,7 @@ flowchart LR
     file[File]
     graphAdapter[Graph]
     pg[PostgreSQL]
+    ob[OceanBase]
     lance[LanceDB]
     ext["Mem0 / Zep"]
   end
@@ -56,6 +57,7 @@ flowchart LR
   router --> file
   router --> graphAdapter
   router --> pg
+  router --> ob
   router --> lance
   router --> ext
 ```
@@ -68,7 +70,7 @@ flowchart LR
 | 🔒 **Governance Built-In** | Every request carries policy context — who acts, for whom, under what constraints |
 | 🔄 **Full Lifecycle** | Write → Search → Get → Update → Expire → Revoke → Delete → Purge — each with distinct semantics |
 | 📋 **Audit Trail** | Every state transition is recorded. Query the audit log through the protocol itself |
-| 🧩 **Pluggable Adapters** | Ship your own adapter or pick from 7 reference implementations |
+| 🧩 **Pluggable Adapters** | Ship your own adapter or pick from 8 reference implementations |
 | 🤝 **Peer to MCP** | Complements MCP — use MCP for tools, MGP for memory, both in the same runtime |
 | ✅ **Compliance Suite** | Machine-verifiable conformance profiles: `Core`, `Lifecycle`, `Interop`, `ExternalService` |
 | 📄 **Schema-Driven** | 60+ JSON Schemas + OpenAPI spec — validate everything, guess nothing |
@@ -205,11 +207,12 @@ MGP/
 | [**File**](adapters/file/README.md) | JSON files | Reference | File-native workflows |
 | [**Graph**](adapters/graph/README.md) | SQLite | Reference | Relationship semantics |
 | [**PostgreSQL**](adapters/postgres/README.md) | PostgreSQL | Production | Relational backends |
+| [**OceanBase**](adapters/oceanbase/README.md) | OceanBase / `oceanbase/seekdb` | Production | MySQL-compatible relational backend |
 | [**LanceDB**](adapters/lancedb/README.md) | LanceDB | Production | Vector / hybrid search |
 | [**Mem0**](adapters/mem0/README.md) | Mem0 service | External | Managed memory |
 | [**Zep**](adapters/zep/README.md) | Zep service | External | Graph-native memory |
 
-> Reference adapters are for protocol verification and learning. For production, use the PostgreSQL/LanceDB baselines or [build your own](docs/adapter-guide.md).
+> Reference adapters are for protocol verification and learning. For production, use the PostgreSQL / OceanBase / LanceDB baselines or [build your own](docs/adapter-guide.md).
 
 ## ⚖️ MGP vs MCP
 

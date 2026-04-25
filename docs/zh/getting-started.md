@@ -300,7 +300,7 @@ governed memory 的基本单位。每个 memory object 都有 `subject`（关于
 
 ### Adapter（适配器）
 
-适配器把具体的存储后端桥接到 MGP 协议面。仓库内置了 in-memory、file、graph（SQLite）、PostgreSQL、LanceDB、Mem0 和 Zep 适配器。你可以按照 [适配器编写指南](adapter-guide.md) 编写自己的适配器。
+适配器把具体的存储后端桥接到 MGP 协议面。仓库内置了 in-memory、file、graph（SQLite）、PostgreSQL、OceanBase、LanceDB、Mem0 和 Zep 适配器。你可以按照 [适配器编写指南](adapter-guide.md) 编写自己的适配器。
 
 ### Capability（能力声明）
 

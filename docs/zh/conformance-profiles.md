@@ -107,7 +107,7 @@ MGP 的协议面不只是一个 CRUD API，还包括：
 
 - reference gateway 覆盖 `Core`、`Lifecycle`、`Interop`
 - CI 会对 `memory`、`file`、`graph` 跑完整 reference suite
-- `postgres` 和 `lancedb` 是生产导向的自管 adapter 路径，可以在默认 CI 矩阵之外验证同一组 profile
+- `postgres`、`oceanbase` 和 `lancedb` 是生产导向的自管 adapter 路径，可以在默认 CI 矩阵之外验证同一组 profile
 - `mem0` 和 `zep` 是正式记录的 service-backed adapter，但它们需要真实 provider 环境，因此不在默认 CI 矩阵里
 
 ## 声明规则

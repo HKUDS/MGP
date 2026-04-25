@@ -45,6 +45,13 @@ cd compliance
 MGP_ADAPTER=postgres MGP_POSTGRES_DSN=postgresql://postgres:postgres@127.0.0.1:5432/mgp ../.venv/bin/python -m pytest
 ```
 
+### OceanBase Adapter
+
+```bash
+cd compliance
+MGP_ADAPTER=oceanbase MGP_OCEANBASE_DSN='mysql://root:oblab@127.0.0.1:2881/test?tenant=sys' ../.venv/bin/python -m pytest
+```
+
 Or run all three at once:
 
 ```bash
@@ -107,6 +114,7 @@ Repository interpretation:
 
 - the in-repo `memory`, `file`, and `graph` matrix demonstrates `Core`, `Lifecycle`, and `Interop`
 - `postgres` can validate the same profiles locally when `MGP_POSTGRES_DSN` is configured
+- `oceanbase` can validate the same profiles locally when `MGP_OCEANBASE_DSN` (or the discrete `MGP_OCEANBASE_*` tuple) is configured, including against `oceanbase/seekdb`
 - `ExternalService` applies to service-backed adapters such as `Mem0` and `Zep`, which require real provider environments for end-to-end validation
 
 Capability interpretation note:

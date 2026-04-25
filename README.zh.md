@@ -43,6 +43,7 @@ flowchart LR
     file[文件]
     graphAdapter[图]
     pg[PostgreSQL]
+    ob[OceanBase]
     lance[LanceDB]
     ext["Mem0 / Zep"]
   end
@@ -56,6 +57,7 @@ flowchart LR
   router --> file
   router --> graphAdapter
   router --> pg
+  router --> ob
   router --> lance
   router --> ext
 ```
@@ -68,7 +70,7 @@ flowchart LR
 | 🔒 **治理内建** | 每个请求都携带策略上下文——谁在操作、为谁操作、在什么约束下 |
 | 🔄 **完整生命周期** | Write → Search → Get → Update → Expire → Revoke → Delete → Purge，每步都有明确语义 |
 | 📋 **审计追踪** | 每次状态变更都有记录，可通过协议本身查询审计日志 |
-| 🧩 **可插拔适配器** | 自建适配器，或选用 7 个参考实现之一 |
+| 🧩 **可插拔适配器** | 自建适配器，或选用 8 个参考实现之一 |
 | 🤝 **与 MCP 对等** | 与 MCP 互补——MCP 管工具，MGP 管记忆，两者可在同一运行时共存 |
 | ✅ **合规套件** | 机器可验证的兼容性配置档：`Core`、`Lifecycle`、`Interop`、`ExternalService` |
 | 📄 **Schema 驱动** | 60+ JSON Schema + OpenAPI 定义——验证一切，不靠猜测 |
@@ -205,11 +207,12 @@ MGP/
 | [**File**](adapters/file/README.md) | JSON 文件 | 参考 | 文件型工作流 |
 | [**Graph**](adapters/graph/README.md) | SQLite | 参考 | 关系语义 |
 | [**PostgreSQL**](adapters/postgres/README.md) | PostgreSQL | 生产 | 关系型后端 |
+| [**OceanBase**](adapters/oceanbase/README.md) | OceanBase / `oceanbase/seekdb` | 生产 | MySQL 兼容关系型后端 |
 | [**LanceDB**](adapters/lancedb/README.md) | LanceDB | 生产 | 向量/混合搜索 |
 | [**Mem0**](adapters/mem0/README.md) | Mem0 服务 | 外部 | 托管记忆 |
 | [**Zep**](adapters/zep/README.md) | Zep 服务 | 外部 | 图原生记忆 |
 
-> 参考适配器用于协议验证和学习。生产环境建议使用 PostgreSQL/LanceDB 基线，或按 [适配器编写指南](docs/zh/adapter-guide.md) 自建。
+> 参考适配器用于协议验证和学习。生产环境建议使用 PostgreSQL / OceanBase / LanceDB 基线，或按 [适配器编写指南](docs/zh/adapter-guide.md) 自建。
 
 ## ⚖️ MGP vs MCP
 

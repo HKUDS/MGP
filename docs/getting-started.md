@@ -300,7 +300,7 @@ Every request carries a policy context that tells the gateway who is acting, on 
 
 ### Adapter
 
-An adapter bridges a concrete storage backend into the MGP protocol surface. The repository includes adapters for in-memory, file, graph (SQLite), PostgreSQL, LanceDB, Mem0, and Zep backends. You can write your own by following the [Adapter Guide](adapter-guide.md).
+An adapter bridges a concrete storage backend into the MGP protocol surface. The repository includes adapters for in-memory, file, graph (SQLite), PostgreSQL, OceanBase, LanceDB, Mem0, and Zep backends. You can write your own by following the [Adapter Guide](adapter-guide.md).
 
 ### Capability
 

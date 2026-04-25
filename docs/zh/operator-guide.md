@@ -8,7 +8,7 @@
 - 通过 `/readyz` 监控 adapter readiness
 - 通过 `/version` 查看当前运行版本与 adapter 选择
 - audit sink 的增长与轮转
-- adapter 对应后端的健康，例如 PostgreSQL 可用性
+- adapter 对应后端的健康，例如 PostgreSQL 或 OceanBase 可用性
 
 ## 日志
 
@@ -54,6 +54,12 @@
 - 监控连接、磁盘增长和索引健康
 - 按正常 PostgreSQL 流程完成备份
 - 对 schema migration 保持变更可追踪
+
+### OceanBase
+
+- 监控 MySQL 兼容连接（`MGP_OCEANBASE_DSN` 或离散变量 `MGP_OCEANBASE_*`）、租户范围与磁盘增长
+- 使用 OceanBase 标准运维工具完成备份
+- 跑在 `oceanbase/seekdb` 上时，把单机容器视为有状态基础设施，对数据卷做快照
 
 ## Lifecycle 与删除
 

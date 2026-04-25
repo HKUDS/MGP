@@ -108,7 +108,7 @@ flowchart LR
 | `schemas/` | Machine-readable protocol contracts | memory objects, request and response envelopes, capabilities, tasks |
 | `openapi/` | HTTP binding contract | `mgp-openapi.yaml` |
 | `reference/` | Runnable Python reference gateway | FastAPI app, validation, policy hook, audit sink, async task store |
-| `adapters/` | Backend normalization layer | in-memory, file, graph, PostgreSQL, LanceDB, Mem0, and Zep adapters plus manifests |
+| `adapters/` | Backend normalization layer | in-memory, file, graph, PostgreSQL, OceanBase, LanceDB, Mem0, and Zep adapters plus manifests |
 | `compliance/` | Protocol verification | pytest suite for schema, lifecycle, search, audit, adapters, and interop |
 | `sdk/python/` | Runtime-facing client | `MGPClient`, `PolicyContextBuilder`, search and candidate helpers |
 | `integrations/` | Runtime adoption paths | sidecar bridge, harness, tests, and concrete runtime integration paths |

@@ -28,6 +28,8 @@ Mem0 and Zep are different: they are **service-backed adapters** that target rea
 
 The PostgreSQL adapter is different again: it is a **production-oriented baseline adapter** intended to show how a relational backend can be used as a real deployment path without tying MGP to one managed memory vendor.
 
+The OceanBase adapter follows the same deployment shape as PostgreSQL but targets OceanBase (and the lightweight `oceanbase/seekdb` variant) over the MySQL-compatible wire. It is a **production-oriented baseline adapter** for teams that already run OceanBase or want a single-node embeddable SQL backend.
+
 The LanceDB adapter follows the same deployment shape as PostgreSQL, but for vector-native memory retrieval. It is a **production-oriented self-managed adapter** for teams that want semantic or hybrid recall over canonical MGP memory objects without depending on a hosted memory service.
 
 For live usage:
@@ -89,6 +91,20 @@ Role:
 - demonstrates persistent multi-tenant storage, indexed search, and lifecycle state handling
 - suitable as a starting point for teams that want to run MGP against their own relational infrastructure
 
+### OceanBase Adapter
+
+Source:
+
+- `adapters/oceanbase/adapter.py`
+- `adapters/oceanbase/README.md`
+
+Role:
+
+- production-oriented SQL adapter baseline targeting OceanBase over the MySQL-compatible wire
+- mirrors the PostgreSQL adapter's lifecycle semantics, with `pyobvector` as the client
+- also runs against the lightweight `oceanbase/seekdb` single-node variant for resource-constrained environments
+- search mode is `lexical`; vector search is not yet wired through
+
 ### LanceDB Adapter
 
 Source:
@@ -139,6 +155,7 @@ Current CI coverage:
 Optional local validation paths:
 
 - `postgres` can run the same suite when `MGP_POSTGRES_DSN` is configured
+- `oceanbase` can run the same suite when `MGP_OCEANBASE_DSN` (or the discrete `MGP_OCEANBASE_*` tuple) is configured
 - `lancedb` can run the same suite when LanceDB and an embedding configuration are available
 - external-service adapters require their corresponding service environments to validate end to end
 
@@ -146,6 +163,7 @@ Profile interpretation:
 
 - `memory`, `file`, and `graph` participate in the default `Core` + `Lifecycle` + `Interop` reference matrix
 - `postgres` is a production-oriented adapter path that can exercise the same profiles outside the default CI matrix
+- `oceanbase` is a production-oriented adapter path that can exercise the same profiles outside the default CI matrix, including against `oceanbase/seekdb`
 - `lancedb` is a production-oriented self-managed adapter path that can exercise the same profiles outside the default CI matrix
 - `mem0` and `zep` are `ExternalService` adapters whose validation depends on real provider environments
 

@@ -8,7 +8,7 @@ This page focuses on day-2 concerns for running the reference gateway.
 - adapter readiness through `/readyz`
 - running version and adapter selection through `/version`
 - audit sink growth and rotation behavior
-- adapter-specific storage health such as PostgreSQL availability
+- adapter-specific storage health such as PostgreSQL or OceanBase availability
 
 ## Logs
 
@@ -54,6 +54,12 @@ Operational considerations:
 - monitor connectivity, disk growth, and index health
 - back up the database using your normal PostgreSQL operational process
 - keep schema migrations under change control
+
+### OceanBase
+
+- monitor MySQL-compatible connectivity (`MGP_OCEANBASE_DSN` / discrete `MGP_OCEANBASE_*` variables), tenant scope, and disk growth
+- back up the database through OceanBase's standard operational tooling
+- when running on `oceanbase/seekdb`, treat the single-node container as stateful infrastructure and snapshot its data volume
 
 ## Lifecycle And Deletion
 

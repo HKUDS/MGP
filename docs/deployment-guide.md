@@ -55,12 +55,14 @@ Key environment variables:
 - `MGP_FILE_STORAGE_DIR`
 - `MGP_GRAPH_DB_PATH`
 - `MGP_POSTGRES_DSN`
+- `MGP_OCEANBASE_DSN` (or the discrete `MGP_OCEANBASE_URI` / `MGP_OCEANBASE_USER` / `MGP_OCEANBASE_PASSWORD` / `MGP_OCEANBASE_DATABASE` / optional `MGP_OCEANBASE_TENANT`)
 
 Recommended starting points:
 
 - `memory` for local debugging
 - `file` for simple persistence demos
 - `postgres` for a production-oriented self-managed baseline
+- `oceanbase` for a production-oriented self-managed baseline on OceanBase (or single-node `oceanbase/seekdb`)
 - `mem0` or `zep` when the deployment already depends on those providers
 
 ## Security And Access

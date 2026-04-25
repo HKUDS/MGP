@@ -55,12 +55,14 @@ docker compose up --build
 - `MGP_FILE_STORAGE_DIR`
 - `MGP_GRAPH_DB_PATH`
 - `MGP_POSTGRES_DSN`
+- `MGP_OCEANBASE_DSN`（或离散变量 `MGP_OCEANBASE_URI` / `MGP_OCEANBASE_USER` / `MGP_OCEANBASE_PASSWORD` / `MGP_OCEANBASE_DATABASE` / 可选 `MGP_OCEANBASE_TENANT`）
 
 推荐起点：
 
 - `memory`：本地调试
 - `file`：简单持久化演示
 - `postgres`：生产导向的自管理基线
+- `oceanbase`：基于 OceanBase 的生产导向自管基线（也可对接单机版 `oceanbase/seekdb`）
 - `mem0` 或 `zep`：当部署本身就依赖这些 provider
 
 ## 安全与访问

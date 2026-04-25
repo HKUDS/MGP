@@ -76,4 +76,4 @@ Common starting points:
 1. Start with the reference gateway and `mgp-client`.
 2. Add MGP in `shadow` mode through a sidecar.
 3. Move to a native SDK path once runtime behavior is stable.
-4. Introduce a production-oriented backend such as PostgreSQL when you need a self-managed deployment path.
+4. Introduce a production-oriented backend such as PostgreSQL or OceanBase when you need a self-managed deployment path.

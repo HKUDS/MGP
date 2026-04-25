@@ -107,7 +107,7 @@ Current repository behavior:
 
 - the reference gateway implements `Core`, `Lifecycle`, and `Interop`
 - CI runs the full reference suite against `memory`, `file`, and `graph`
-- `postgres` and `lancedb` are self-managed production-oriented adapter paths that can validate the same profiles outside the default CI matrix
+- `postgres`, `oceanbase`, and `lancedb` are self-managed production-oriented adapter paths that can validate the same profiles outside the default CI matrix
 - `mem0` and `zep` are documented service-backed adapters, but they require provider environments and are not part of the default CI matrix
 
 ## Claim Rules
