@@ -27,7 +27,7 @@ make install
 如果你只想安装打包后的参考网关 CLI，而不需要整套仓库工具链：
 
 ```bash
-python3 -m pip install ./reference
+python3 -m pip install .
 ```
 
 ## 2. 启动参考网关

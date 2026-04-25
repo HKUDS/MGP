@@ -7,7 +7,7 @@ The runnable Python reference gateway for MGP. It maps the full protocol surface
 
 Key features:
 
-- package metadata in `reference/pyproject.toml`
+- package metadata in the repository root `pyproject.toml`
 - a CLI entrypoint through `mgp-gateway`
 - configurable adapter, audit, auth, and tenant-binding settings
 - operational endpoints for health, readiness, and version inspection
@@ -28,15 +28,15 @@ make install
 ### Gateway Package Path
 
 ```bash
-python3 -m pip install ./reference
+python3 -m pip install .
 ```
 
-That install exposes the `mgp-gateway` command.
+That install exposes the `mgp-gateway` command. Run it from the repository root so setuptools can pick up `gateway/`, `audit/`, `policy/` (under `reference/`) and the sibling `adapters/`, `schemas/`, `openapi/` trees referenced by the build configuration.
 
 If you want the LanceDB adapter available in the installed gateway, install the optional extra:
 
 ```bash
-python3 -m pip install "./reference[lancedb]"
+python3 -m pip install ".[lancedb]"
 ```
 
 ## Run

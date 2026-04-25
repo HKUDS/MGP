@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: Memory Governance Protocol API
-  version: 0.1.0
+  version: 0.1.1
   description: >
     Reference HTTP binding for the Memory Governance Protocol (MGP).
     This specification defines JSON-over-HTTP endpoints for governed memory operations,
