@@ -155,9 +155,9 @@ This document does not define:
 
 ## Concrete Reference: Nanobot
 
-The repository ships a concrete sidecar reference under [`integrations/nanobot/`](../integrations/nanobot/README.md). That directory documents two integration paths:
+The repository ships a concrete sidecar reference under [`integrations/nanobot/`](https://github.com/HKUDS/MGP/tree/main/integrations/nanobot). That directory documents two integration paths:
 
 - **Path A** — `nanobot[mgp]` extra: the in-tree always-on `recall_memory` tool plus automatic Consolidator/Dream commit. This is the production path for end users.
 - **Path B** — runtime patch harness: patches stock unmodified Nanobot at runtime with `off / shadow / primary` rollout modes. Used by MGP CI and for staged validation.
 
-Both paths map onto the generic sidecar responsibilities described above. Read [`integrations/nanobot/README.md`](../integrations/nanobot/README.md) for adapter selection (postgres / oceanbase / lancedb / mem0 / zep), embedding configuration for LanceDB, subject-id derivation, and operational notes.
+Both paths map onto the generic sidecar responsibilities described above. Read [`integrations/nanobot/README.md`](https://github.com/HKUDS/MGP/blob/main/integrations/nanobot/README.md) for adapter selection (postgres / oceanbase / lancedb / mem0 / zep), embedding configuration for LanceDB, subject-id derivation, and operational notes.
