@@ -16,7 +16,7 @@ MGP uses semantic versioning:
 
 Examples:
 
-- `0.1.0`
+- `0.1.1`
 - `0.2.0`
 - `1.0.0`
 
@@ -81,7 +81,7 @@ Examples:
 
 Current repository policy:
 
-- alignment work that reconciles `spec/`, `schemas/`, `openapi/`, reference behavior, and examples without changing protocol meaning remains part of `v0.1.0`
+- alignment work that reconciles `spec/`, `schemas/`, `openapi/`, reference behavior, and examples without changing protocol meaning remains part of `v0.1.1`
 
 ## Release Documentation Expectations
 

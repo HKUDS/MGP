@@ -1,3 +1,86 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mgp-gateway"
+version = "0.1.1"
+description = "Reference gateway for the Memory Governance Protocol"
+readme = "reference/README.md"
+requires-python = ">=3.11"
+dependencies = [
+  "fastapi>=0.115",
+  "uvicorn>=0.34",
+  "jsonschema>=4.23",
+  "referencing>=0.35",
+]
+authors = [
+  { name = "Zirui Guo" }
+]
+license = { text = "MIT" }
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Framework :: FastAPI",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+]
+
+[project.urls]
+Homepage = "https://github.com/hkuds/MGP"
+Documentation = "https://hkuds.github.io/MGP/"
+Repository = "https://github.com/hkuds/MGP"
+
+[project.optional-dependencies]
+postgres = [
+  "psycopg[binary]>=3.2",
+]
+oceanbase = [
+  "pyobvector>=0.2.25",
+  "sqlglot==26.0.1",
+]
+lancedb = [
+  "lancedb>=0.27",
+]
+
+[project.scripts]
+mgp-gateway = "gateway.__main__:main"
+
+# Packages live in two trees:
+#   - reference/  → gateway, gateway.routes, audit, policy
+#   - .           → adapters (+ subpackages), schemas, openapi
+# setuptools auto-derives package_dir for each found package based on the
+# `where` entry it was discovered under, so the resulting wheel ships every
+# directory at the top level (e.g. `adapters/postgres/...`, `schemas/*.json`).
+[tool.setuptools.packages.find]
+where = ["reference", "."]
+include = ["gateway*", "audit*", "policy*", "adapters*", "schemas*", "openapi*"]
+exclude = [
+  "compliance*",
+  "docs*",
+  "examples*",
+  "integrations*",
+  "scripts*",
+  "sdk*",
+  "spec*",
+  "site*",
+  "tests*",
+]
+
+[tool.setuptools.package-data]
+"schemas" = ["*.json"]
+"openapi" = ["*.yaml"]
+"adapters.memory" = ["manifest.json"]
+"adapters.file" = ["manifest.json"]
+"adapters.graph" = ["manifest.json"]
+"adapters.postgres" = ["manifest.json", "migrations/*.sql"]
+"adapters.oceanbase" = ["manifest.json"]
+"adapters.lancedb" = ["manifest.json"]
+"adapters.mem0" = ["manifest.json"]
+"adapters.zep" = ["manifest.json"]
+
 [tool.ruff]
 line-length = 120
 target-version = "py311"

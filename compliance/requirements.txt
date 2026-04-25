@@ -1,4 +1,4 @@
-pytest>=8.0
+pytest>=9.0
 httpx>=0.28
 jsonschema>=4.23
 PyYAML>=6.0

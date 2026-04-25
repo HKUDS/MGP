@@ -350,7 +350,7 @@ def test_cancel_task_response_valid():
 def test_initialize_request_valid():
     payload = {
         "request_id": "req_init_1",
-        "protocol_version": "0.1.0",
+        "protocol_version": "0.1.1",
         "client": {
             "name": "pytest-client",
             "version": "1.0.0",
@@ -365,7 +365,7 @@ def test_initialize_request_valid():
 def test_initialize_request_with_supported_versions_valid():
     payload = {
         "request_id": "req_init_2",
-        "supported_versions": ["0.3.0", "0.1.0"],
+        "supported_versions": ["0.3.0", "0.1.1"],
         "preferred_version": "0.3.0",
         "client": {
             "name": "pytest-client",
@@ -381,9 +381,9 @@ def test_initialize_response_valid():
         "status": "ok",
         "error": None,
         "data": {
-            "chosen_version": "0.1.0",
-            "supported_versions": ["0.1.0"],
-            "minimum_supported_version": "0.1.0",
+            "chosen_version": "0.1.1",
+            "supported_versions": ["0.1.1"],
+            "minimum_supported_version": "0.1.1",
             "lifecycle_phase": "ready",
             "session_mode": "stateless",
             "transport_profile": "stateless_http",
@@ -422,7 +422,7 @@ def test_initialize_response_valid():
             "negotiated_profiles": ["core-memory", "lifecycle"],
             "server_info": {
                 "name": "mgp-reference-gateway",
-                "version": "0.1.0",
+                "version": "0.1.1",
             },
             "discovery": {
                 "capabilities_uri": "/mgp/capabilities",

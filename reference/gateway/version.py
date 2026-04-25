@@ -3,8 +3,8 @@ from __future__ import annotations
 import os
 from importlib.metadata import PackageNotFoundError, version
 
-DEFAULT_GATEWAY_VERSION = "0.1.0"
-PROTOCOL_VERSION = "0.1.0"
+DEFAULT_GATEWAY_VERSION = "0.1.1"
+PROTOCOL_VERSION = "0.1.1"
 PACKAGE_NAME = "mgp-gateway"
 APP_NAME = "mgp-reference-gateway"
 APP_TITLE = "MGP Reference Gateway"

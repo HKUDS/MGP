@@ -4,7 +4,7 @@
 
 **面向 AI 系统的开放记忆治理协议**
 
-[![Protocol](https://img.shields.io/badge/protocol-v0.1.0-blue)](#)
+[![Protocol](https://img.shields.io/badge/protocol-v0.1.1-blue)](#)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![CI](https://img.shields.io/github/actions/workflow/status/hkuds/MGP/quality.yml?label=CI)](https://github.com/hkuds/MGP/actions)
 [![Docs](https://img.shields.io/badge/docs-mkdocs-blue)](https://hkuds.github.io/MGP/)
@@ -18,7 +18,7 @@
 
 MGP 统一了 AI 运行时**写入、召回、治理和审计持久化记忆**的方式。它是一个协议契约层——你的 Agent 只需对接一套协议，任何兼容的记忆后端都能直接工作。
 
-当前协议版本：`v0.1.0`
+当前协议版本：`v0.1.1`
 
 > **MCP** 标准化的是*工具与资源*。**MGP** 标准化的是*受治理记忆*。二者是对等协议——互补而非竞争。
 
