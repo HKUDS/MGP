@@ -154,7 +154,7 @@ This lets the server compute an effective negotiated surface for features such a
 - prompt-safe views
 - future async or subscription features
 
-For `MGP v0.1.0`, this negotiation clarifies which runtime-facing features are safe to rely on. It does not remove required fields from the published request or response schemas.
+For `MGP v0.1.1`, this negotiation clarifies which runtime-facing features are safe to rely on. It does not remove required fields from the published request or response schemas.
 
 ## Ordering Rules
 

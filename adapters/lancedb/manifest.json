@@ -1,7 +1,7 @@
 {
   "adapter_name": "lancedb-vector-adapter",
   "backend_kind": "vector_db",
-  "mgp_version": "0.1.0",
+  "mgp_version": "0.1.1",
   "supported_memory_types": [
     "profile",
     "preference",

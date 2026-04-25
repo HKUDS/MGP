@@ -5,12 +5,13 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 
 WORKDIR /app
 
+COPY pyproject.toml ./pyproject.toml
 COPY reference/ ./reference/
 COPY adapters/ ./adapters/
 COPY schemas/ ./schemas/
 COPY openapi/ ./openapi/
 
-RUN pip install --no-cache-dir ./reference
+RUN pip install --no-cache-dir .
 
 EXPOSE 8080
 

@@ -12,9 +12,6 @@ jobs:
   release-build:
     name: Build mgp-gateway
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: reference
 
     steps:
       - name: Checkout repository
@@ -35,7 +32,7 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: mgp-gateway-dists
-          path: reference/dist/
+          path: dist/
 
   pypi-publish:
     name: Publish mgp-gateway to PyPI

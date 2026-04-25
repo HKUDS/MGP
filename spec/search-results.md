@@ -35,7 +35,7 @@ The normalized MGP memory object returned by the search operation.
 
 This object should conform to [schemas/memory-object.schema.json](../schemas/memory-object.schema.json), subject to any access-control transformation allowed by policy.
 
-For `metadata_only` in `MGP v0.1.0`, implementations should still return a schema-valid canonical memory object, but any semantic content must be replaced with non-sensitive placeholder content.
+For `metadata_only` in `MGP v0.1.1`, implementations should still return a schema-valid canonical memory object, but any semantic content must be replaced with non-sensitive placeholder content.
 
 ### `score`
 

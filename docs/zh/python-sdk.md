@@ -31,5 +31,5 @@
 
 ## 使用提示
 
-- 当前 `v0.1.0` 响应面会稳定返回 `consumable_text`、`return_mode` 与 `redaction_info`
+- 当前 `v0.1.1` 响应面会稳定返回 `consumable_text`、`return_mode` 与 `redaction_info`
 - runtime 侧应优先消费这些字段，而不是默认把原始 `memory.content` 当作总是 prompt-safe 的内容

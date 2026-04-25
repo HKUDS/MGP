@@ -125,7 +125,7 @@ Example:
 
 Return a metadata-safe canonical memory view.
 
-For `MGP v0.1.0`, this mode still uses the normal response shape and a schema-valid memory object.
+For `MGP v0.1.1`, this mode still uses the normal response shape and a schema-valid memory object.
 
 That means:
 

@@ -28,7 +28,7 @@ jobs:
           python -m venv .venv
           ./.venv/bin/python -m pip install --upgrade pip
           ./.venv/bin/python -m pip install -r reference/requirements.lock.txt -r compliance/requirements.lock.txt -r docs/requirements.lock.txt
-          ./.venv/bin/python -m pip install -e reference -e sdk/python
+          ./.venv/bin/python -m pip install -e . -e sdk/python
           ./.venv/bin/python -m pip install ruff mypy types-PyYAML
 
       - name: Run Ruff (matches make lint quality checks)
@@ -68,7 +68,7 @@ jobs:
           python -m venv .venv
           ./.venv/bin/python -m pip install --upgrade pip
           ./.venv/bin/python -m pip install -r reference/requirements.lock.txt -r compliance/requirements.lock.txt
-          ./.venv/bin/python -m pip install -e reference
+          ./.venv/bin/python -m pip install -e .
           ./.venv/bin/python -m pip install pytest-cov
 
       - name: Run compliance suite
@@ -128,7 +128,7 @@ jobs:
           python -m venv .venv
           ./.venv/bin/python -m pip install --upgrade pip
           ./.venv/bin/python -m pip install -r reference/requirements.lock.txt -r compliance/requirements.lock.txt
-          ./.venv/bin/python -m pip install -e reference -e sdk/python
+          ./.venv/bin/python -m pip install -e . -e sdk/python
 
       - name: Run integration tests
         run: ./.venv/bin/python -m pytest integrations/nanobot/tests integrations/langgraph/tests integrations/minimal_runtime/tests

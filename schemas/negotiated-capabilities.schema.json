@@ -26,7 +26,7 @@
     },
     "supports_consumable_text": {
       "type": "boolean",
-      "description": "Whether consumable_text should be treated as part of the negotiated runtime-facing contract; the field itself remains part of the v0.1.0 response surface."
+      "description": "Whether consumable_text should be treated as part of the negotiated runtime-facing contract; the field itself remains part of the v0.1.1 response surface."
     },
     "supports_redaction_info": {
       "type": "boolean",

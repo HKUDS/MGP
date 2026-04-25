@@ -2,7 +2,7 @@
 
 MGP (Memory Governance Protocol) is an open protocol for governed memory in AI systems. It standardizes canonical memory objects, runtime memory operations, policy context, lifecycle semantics, auditability, and adapter capability declaration across heterogeneous memory backends.
 
-**Protocol Version: v0.1.0**
+**Protocol Version: v0.1.1**
 
 **Looking for a quick start?** Head to [Getting Started](getting-started.md) to go from zero to running governed memory in five minutes. This page focuses on goals, architecture, and repository modules.
 
