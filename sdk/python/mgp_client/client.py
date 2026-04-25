@@ -228,11 +228,11 @@ class MGPClient:
     def initialize(
         self,
         *,
-        protocol_version: str | None = "0.1.0",
+        protocol_version: str | None = "0.1.1",
         supported_versions: list[str] | None = None,
         preferred_version: str | None = None,
         client_name: str = "mgp-python-sdk",
-        client_version: str = "0.1.0",
+        client_version: str = "0.1.1",
         client_title: str | None = None,
         client_description: str | None = None,
         requested_capabilities: dict[str, Any] | None = None,

@@ -69,7 +69,7 @@ The initialize response may then return:
 - `protocol_capabilities`
 - `negotiated_capabilities`
 
-For `MGP v0.1.0`, these negotiated fields describe whether the runtime can correctly consume the response-side features already defined by the protocol. They do not imply that core response fields such as `consumable_text` can be omitted from the wire contract.
+For `MGP v0.1.1`, these negotiated fields describe whether the runtime can correctly consume the response-side features already defined by the protocol. They do not imply that core response fields such as `consumable_text` can be omitted from the wire contract.
 
 Runtimes should use these negotiated outputs to avoid assuming every implementation or profile supports the same advanced behavior.
 
@@ -198,7 +198,7 @@ The runtime may use the object, but should assume sensitive fields were transfor
 
 The runtime should not use the object as semantic memory content. It may only use metadata such as identifiers, type, timestamps, and other explicitly safe metadata.
 
-In `MGP v0.1.0`, implementations may still return a schema-valid canonical memory object with placeholder `content` so the result remains machine-valid. Runtimes must treat that placeholder content as non-semantic metadata, not as recallable truth.
+In `MGP v0.1.1`, implementations may still return a schema-valid canonical memory object with placeholder `content` so the result remains machine-valid. Runtimes must treat that placeholder content as non-semantic metadata, not as recallable truth.
 
 ## Handling `consumable_text`
 

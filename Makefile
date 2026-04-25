@@ -13,7 +13,7 @@ install: check-python
 	$(PYTHON) -m venv $(VENV)
 	$(PIP) install --upgrade pip
 	$(PIP) install -r reference/requirements.lock.txt -r compliance/requirements.lock.txt -r docs/requirements.lock.txt
-	$(PIP) install -e reference -e sdk/python
+	$(PIP) install -e . -e sdk/python
 	$(PIP) install ruff mypy pip-audit build pytest-asyncio pytest-cov types-PyYAML
 
 serve:
@@ -47,7 +47,7 @@ build-sdk:
 	$(VENV_PYTHON) -m build sdk/python
 
 build-gateway:
-	$(VENV_PYTHON) -m build reference
+	$(VENV_PYTHON) -m build
 
 docs-build:
 	$(VENV_PYTHON) -m mkdocs build --strict

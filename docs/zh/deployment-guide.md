@@ -29,7 +29,7 @@ make serve
 命令：
 
 ```bash
-python3 -m pip install ./reference
+python3 -m pip install .
 mgp-gateway --host 127.0.0.1 --port 8080
 ```
 

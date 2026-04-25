@@ -27,7 +27,7 @@ This creates a virtual environment at `.venv/` and installs the reference gatewa
 If you only want the packaged reference gateway CLI instead of the whole repository toolchain:
 
 ```bash
-python3 -m pip install ./reference
+python3 -m pip install .
 ```
 
 ## 2. Start The Reference Gateway

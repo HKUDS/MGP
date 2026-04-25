@@ -4,7 +4,7 @@
 
 **The open protocol for governed memory in AI systems.**
 
-[![Protocol](https://img.shields.io/badge/protocol-v0.1.0-blue)](#)
+[![Protocol](https://img.shields.io/badge/protocol-v0.1.1-blue)](#)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![CI](https://img.shields.io/github/actions/workflow/status/hkuds/MGP/quality.yml?label=CI)](https://github.com/hkuds/MGP/actions)
 [![Docs](https://img.shields.io/badge/docs-mkdocs-blue)](https://hkuds.github.io/MGP/)
@@ -18,7 +18,7 @@
 
 MGP standardizes how AI runtimes **write, recall, govern, and audit persistent memory** across heterogeneous backends. Think of it as a unified contract layer — your agent talks to one protocol, and any compliant memory backend just works.
 
-Current protocol version: `v0.1.0`
+Current protocol version: `v0.1.1`
 
 > **MCP** standardizes *tools and resources*. **MGP** standardizes *governed memory*. They are peer protocols — complementary, not competing.
 

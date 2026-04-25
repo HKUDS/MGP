@@ -6,7 +6,7 @@ def test_initialize_returns_ready_state(mgp_post):
         "/mgp/initialize",
         {
             "request_id": "req_init_ready",
-            "supported_versions": ["0.1.0"],
+            "supported_versions": ["0.1.1"],
             "client": {
                 "name": "pytest-client",
                 "version": "1.0.0",
@@ -32,8 +32,8 @@ def test_initialize_returns_ready_state(mgp_post):
     body = response.json()
     assert body["status"] == "ok"
     assert body["data"]["lifecycle_phase"] == "ready"
-    assert body["data"]["chosen_version"] == "0.1.0"
-    assert body["data"]["supported_versions"] == ["0.1.0"]
+    assert body["data"]["chosen_version"] == "0.1.1"
+    assert body["data"]["supported_versions"] == ["0.1.1"]
     assert body["data"]["session_mode"] == "stateless"
     assert body["data"]["transport_profile"] == "stateless_http"
     assert body["data"]["protocol_capabilities"]["supports_initialize"] is True
@@ -50,7 +50,7 @@ def test_initialize_invalid_payload_returns_bad_request(mgp_post):
         "/mgp/initialize",
         {
             "request_id": "req_init_invalid",
-            "protocol_version": "0.1.0",
+            "protocol_version": "0.1.1",
         },
     )
 
@@ -63,7 +63,7 @@ def test_initialize_negotiates_first_mutual_version(mgp_post):
         "/mgp/initialize",
         {
             "request_id": "req_init_negotiate",
-            "supported_versions": ["0.3.0", "0.1.0"],
+            "supported_versions": ["0.3.0", "0.1.1"],
             "preferred_version": "0.3.0",
             "client": {
                 "name": "pytest-client",
@@ -74,8 +74,8 @@ def test_initialize_negotiates_first_mutual_version(mgp_post):
 
     assert response.status_code == 200
     body = response.json()
-    assert body["data"]["chosen_version"] == "0.1.0"
-    assert body["data"]["minimum_supported_version"] == "0.1.0"
+    assert body["data"]["chosen_version"] == "0.1.1"
+    assert body["data"]["minimum_supported_version"] == "0.1.1"
 
 
 def test_initialize_negotiates_runtime_capabilities(mgp_post):
@@ -83,7 +83,7 @@ def test_initialize_negotiates_runtime_capabilities(mgp_post):
         "/mgp/initialize",
         {
             "request_id": "req_init_caps",
-            "supported_versions": ["0.1.0"],
+            "supported_versions": ["0.1.1"],
             "client": {
                 "name": "pytest-client",
                 "version": "1.0.0",
@@ -112,7 +112,7 @@ def test_initialize_unsupported_transport_returns_not_implemented(mgp_post):
         "/mgp/initialize",
         {
             "request_id": "req_init_transport",
-            "protocol_version": "0.1.0",
+            "protocol_version": "0.1.1",
             "client": {
                 "name": "pytest-client",
                 "version": "1.0.0",
@@ -149,7 +149,7 @@ def test_initialize_runtime_rejects_transport_returns_not_implemented(mgp_post):
         "/mgp/initialize",
         {
             "request_id": "req_init_runtime_transport",
-            "supported_versions": ["0.1.0"],
+            "supported_versions": ["0.1.1"],
             "client": {
                 "name": "pytest-client",
                 "version": "1.0.0",
@@ -178,7 +178,7 @@ def test_initialize_returns_negotiated_surface_distinct_from_capabilities(mgp_po
         "/mgp/initialize",
         {
             "request_id": "req_init_distinct",
-            "supported_versions": ["0.1.0"],
+            "supported_versions": ["0.1.1"],
             "client": {
                 "name": "pytest-client",
                 "version": "1.0.0",
