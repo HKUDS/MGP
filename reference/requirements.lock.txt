@@ -2,4 +2,4 @@
 # Refresh by resolving in a Python 3.11+ virtual environment.
 fastapi==0.136.0
 jsonschema==4.26.0
-uvicorn==0.44.0
+uvicorn==0.46.0
