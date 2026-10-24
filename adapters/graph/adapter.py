@@ -67,9 +67,7 @@ class GraphAdapter(BaseAdapter):
             FROM memories
             WHERE {" AND ".join(clauses)}
             ORDER BY memory_id ASC
-            LIMIT ?
         """
-        params.append(limit)
 
         results: list[dict[str, Any]] = []
         for row in self._connection.execute(sql, params):
@@ -84,7 +82,8 @@ class GraphAdapter(BaseAdapter):
                     explanation="Matched lexical terms against SQLite-backed graph memory rows.",
                 )
             )
-        return results
+        results.sort(key=lambda item: (item["score"], item["memory"]["memory_id"]), reverse=True)
+        return results[:limit]
 
     def get(self, memory_id: str) -> dict[str, Any] | None:
         row = self._connection.execute(
