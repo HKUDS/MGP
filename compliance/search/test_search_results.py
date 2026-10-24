@@ -94,3 +94,30 @@ def test_search_can_return_mixed_modes(mgp_post, make_memory, make_request):
     modes = {item["return_mode"] for item in response.json()["data"]["results"]}
     assert "raw" in modes
     assert "metadata_only" in modes
+
+
+def test_search_limit_returns_highest_scoring_match(mgp_post, make_memory, make_request):
+    for index in range(11):
+        memory = make_memory(
+            memory_id=f"mgp-search-ranking-a-{index:02d}",
+            memory_type="semantic_fact",
+            content={"statement": "alpha only"},
+        )
+        mgp_post("/mgp/write", make_request(action="write", payload={"memory": memory}))
+
+    best_match = make_memory(
+        memory_id="mgp-search-ranking-z-best",
+        memory_type="semantic_fact",
+        content={"statement": "alpha beta"},
+    )
+    mgp_post("/mgp/write", make_request(action="write", payload={"memory": best_match}))
+
+    response = mgp_post(
+        "/mgp/search",
+        make_request(action="search", payload={"query": "alpha beta", "limit": 1}),
+    )
+
+    assert response.status_code == 200
+    results = response.json()["data"]["results"]
+    assert len(results) == 1
+    assert results[0]["memory"]["memory_id"] == "mgp-search-ranking-z-best"
