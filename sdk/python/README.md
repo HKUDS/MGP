@@ -121,6 +121,8 @@ client = MGPClient(
 )
 ```
 
+Automatic retries are limited to protocol-safe read/idempotent operations. Strategy-dependent writes, batch writes, imports, and other operations without a retry-safety guarantee are not retried unless `retry_non_idempotent=True` is explicitly set. Enable that option only when the operation's duplicate behavior is known to be safe; a timeout can happen after a mutation has committed.
+
 ## Pagination
 
 ```python
