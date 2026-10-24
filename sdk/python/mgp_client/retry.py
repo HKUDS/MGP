@@ -6,6 +6,29 @@ from dataclasses import dataclass, field
 
 import httpx
 
+_RETRY_SAFE_GET_PATHS = frozenset({"/mgp/capabilities"})
+_RETRY_SAFE_POST_PATHS = frozenset(
+    {
+        "/mgp/initialize",
+        "/mgp/search",
+        "/mgp/get",
+        "/mgp/update",
+        "/mgp/expire",
+        "/mgp/revoke",
+        "/mgp/delete",
+        "/mgp/purge",
+        "/mgp/audit/query",
+        "/mgp/tasks/get",
+    }
+)
+
+
+def is_retry_safe(method: str, path: str) -> bool:
+    normalized_method = method.upper()
+    return (normalized_method == "GET" and path in _RETRY_SAFE_GET_PATHS) or (
+        normalized_method == "POST" and path in _RETRY_SAFE_POST_PATHS
+    )
+
 
 @dataclass
 class RetryConfig:
@@ -13,6 +36,8 @@ class RetryConfig:
     backoff_seconds: float = 0.25
     retry_status_codes: set[int] = field(default_factory=lambda: {429, 500, 502, 503, 504})
     retry_on_request_errors: bool = True
+    # Opt in only when the caller has established duplicate-safety for the operation.
+    retry_non_idempotent: bool = False
 
     def normalized_attempts(self) -> int:
         return max(self.max_attempts, 1)

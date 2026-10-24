@@ -21,7 +21,7 @@ from .models import (
     WriteResponseData,
 )
 from .pagination import iterate_audit_events, iterate_audit_pages, iterate_search_pages, iterate_search_results
-from .retry import RetryConfig, backoff_sleep, should_retry_exception, should_retry_response
+from .retry import RetryConfig, backoff_sleep, is_retry_safe, should_retry_exception, should_retry_response
 from .tasks import wait_for_task_completion
 from .types import AuditQuery, ClientOptions, MemoryCandidate, MGPResponse, SearchQuery
 
@@ -370,13 +370,14 @@ class MGPClient:
         *,
         json_body: dict[str, Any] | None = None,
     ) -> dict[str, Any]:
+        retry_allowed = is_retry_safe(method, path) or self.options.retry.retry_non_idempotent
         attempt = 0
         while True:
             attempt += 1
             try:
                 response = self._client.request(method, path, json=json_body)
             except Exception as error:
-                if should_retry_exception(error, self.options.retry, attempt):
+                if retry_allowed and should_retry_exception(error, self.options.retry, attempt):
                     backoff_sleep(self.options.retry, attempt)
                     continue
                 raise BackendError(
@@ -385,7 +386,7 @@ class MGPClient:
                     details={"path": path, "method": method},
                 ) from error
 
-            if should_retry_response(response, self.options.retry, attempt):
+            if retry_allowed and should_retry_response(response, self.options.retry, attempt):
                 backoff_sleep(self.options.retry, attempt)
                 continue
 
